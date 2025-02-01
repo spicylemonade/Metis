@@ -1,0 +1,939 @@
+{
+    "img_shape": [
+        1800,
+        2880,
+        3
+    ],
+    "texts": [
+        {
+            "id": 0,
+            "content": "Layout",
+            "column_min": 533,
+            "row_min": 70,
+            "column_max": 602,
+            "row_max": 88,
+            "width": 69,
+            "height": 18
+        },
+        {
+            "id": 1,
+            "content": "Modeling",
+            "column_min": 642,
+            "row_min": 67,
+            "column_max": 735,
+            "row_max": 90,
+            "width": 93,
+            "height": 23
+        },
+        {
+            "id": 2,
+            "content": "Sculpting",
+            "column_min": 775,
+            "row_min": 68,
+            "column_max": 870,
+            "row_max": 89,
+            "width": 95,
+            "height": 21
+        },
+        {
+            "id": 3,
+            "content": "UV Editing",
+            "column_min": 912,
+            "row_min": 68,
+            "column_max": 1018,
+            "row_max": 88,
+            "width": 106,
+            "height": 20
+        },
+        {
+            "id": 4,
+            "content": "View",
+            "column_min": 332,
+            "row_min": 117,
+            "column_max": 381,
+            "row_max": 132,
+            "width": 49,
+            "height": 15
+        },
+        {
+            "id": 5,
+            "content": "Select",
+            "column_min": 412,
+            "row_min": 117,
+            "column_max": 475,
+            "row_max": 132,
+            "width": 63,
+            "height": 15
+        },
+        {
+            "id": 6,
+            "content": "Add",
+            "column_min": 504,
+            "row_min": 116,
+            "column_max": 546,
+            "row_max": 131,
+            "width": 42,
+            "height": 15
+        },
+        {
+            "id": 7,
+            "content": "Object",
+            "column_min": 576,
+            "row_min": 115,
+            "column_max": 643,
+            "row_max": 136,
+            "width": 67,
+            "height": 21
+        },
+        {
+            "id": 8,
+            "content": "Global",
+            "column_min": 990,
+            "row_min": 112,
+            "column_max": 1058,
+            "row_max": 134,
+            "width": 68,
+            "height": 22
+        },
+        {
+            "id": 9,
+            "content": "R \u2708",
+            "column_min": 21,
+            "row_min": 56,
+            "column_max": 49,
+            "row_max": 82,
+            "width": 28,
+            "height": 26
+        },
+        {
+            "id": 10,
+            "content": "Unsaved",
+            "column_min": 46,
+            "row_min": 13,
+            "column_max": 133,
+            "row_max": 36,
+            "width": 87,
+            "height": 23
+        },
+        {
+            "id": 11,
+            "content": "Blender 4.3.2",
+            "column_min": 167,
+            "row_min": 11,
+            "column_max": 302,
+            "row_max": 35,
+            "width": 135,
+            "height": 24
+        },
+        {
+            "id": 12,
+            "content": "File",
+            "column_min": 70,
+            "row_min": 60,
+            "column_max": 108,
+            "row_max": 82,
+            "width": 38,
+            "height": 22
+        },
+        {
+            "id": 13,
+            "content": "Edit",
+            "column_min": 138,
+            "row_min": 63,
+            "column_max": 176,
+            "row_max": 79,
+            "width": 38,
+            "height": 16
+        },
+        {
+            "id": 14,
+            "content": "Render",
+            "column_min": 205,
+            "row_min": 64,
+            "column_max": 277,
+            "row_max": 79,
+            "width": 72,
+            "height": 15
+        },
+        {
+            "id": 15,
+            "content": "Window",
+            "column_min": 306,
+            "row_min": 62,
+            "column_max": 387,
+            "row_max": 78,
+            "width": 81,
+            "height": 16
+        },
+        {
+            "id": 16,
+            "content": "Help",
+            "column_min": 419,
+            "row_min": 62,
+            "column_max": 466,
+            "row_max": 83,
+            "width": 47,
+            "height": 21
+        },
+        {
+            "id": 17,
+            "content": "Object Mode",
+            "column_min": 142,
+            "row_min": 113,
+            "column_max": 272,
+            "row_max": 136,
+            "width": 130,
+            "height": 23
+        },
+        {
+            "id": 18,
+            "content": "User Perspective",
+            "column_min": 132,
+            "row_min": 222,
+            "column_max": 303,
+            "row_max": 246,
+            "width": 171,
+            "height": 24
+        },
+        {
+            "id": 19,
+            "content": "Collection Cube",
+            "column_min": 169,
+            "row_min": 258,
+            "column_max": 346,
+            "row_max": 281,
+            "width": 177,
+            "height": 23
+        },
+        {
+            "id": 20,
+            "content": "Texture Paint",
+            "column_min": 1059,
+            "row_min": 69,
+            "column_max": 1194,
+            "row_max": 85,
+            "width": 135,
+            "height": 16
+        },
+        {
+            "id": 21,
+            "content": "Shading",
+            "column_min": 1233,
+            "row_min": 68,
+            "column_max": 1315,
+            "row_max": 87,
+            "width": 82,
+            "height": 19
+        },
+        {
+            "id": 22,
+            "content": "Animation",
+            "column_min": 1356,
+            "row_min": 67,
+            "column_max": 1458,
+            "row_max": 86,
+            "width": 102,
+            "height": 19
+        },
+        {
+            "id": 23,
+            "content": "Rendering",
+            "column_min": 1499,
+            "row_min": 67,
+            "column_max": 1601,
+            "row_max": 89,
+            "width": 102,
+            "height": 22
+        },
+        {
+            "id": 24,
+            "content": "Compositing",
+            "column_min": 1641,
+            "row_min": 69,
+            "column_max": 1769,
+            "row_max": 88,
+            "width": 128,
+            "height": 19
+        },
+        {
+            "id": 25,
+            "content": "Geometry Nodes",
+            "column_min": 1810,
+            "row_min": 66,
+            "column_max": 1979,
+            "row_max": 89,
+            "width": 169,
+            "height": 23
+        },
+        {
+            "id": 26,
+            "content": "Scripting",
+            "column_min": 2019,
+            "row_min": 69,
+            "column_max": 2108,
+            "row_max": 89,
+            "width": 89,
+            "height": 20
+        },
+        {
+            "id": 27,
+            "content": "+",
+            "column_min": 2141,
+            "row_min": 69,
+            "column_max": 2159,
+            "row_max": 83,
+            "width": 18,
+            "height": 14
+        },
+        {
+            "id": 28,
+            "content": "\u2610 \u738b\u304f",
+            "column_min": 1219,
+            "row_min": 111,
+            "column_max": 1275,
+            "row_max": 139,
+            "width": 56,
+            "height": 28
+        },
+        {
+            "id": 29,
+            "content": "\u0627\u0644\u062a\u0646\u0627 A",
+            "column_min": 2128,
+            "row_min": 106,
+            "column_max": 2202,
+            "row_max": 140,
+            "width": 74,
+            "height": 34
+        },
+        {
+            "id": 30,
+            "content": "Scene",
+            "column_min": 2284,
+            "row_min": 62,
+            "column_max": 2347,
+            "row_max": 80,
+            "width": 63,
+            "height": 18
+        },
+        {
+            "id": 31,
+            "content": "Options",
+            "column_min": 2251,
+            "row_min": 168,
+            "column_max": 2331,
+            "row_max": 188,
+            "width": 80,
+            "height": 20
+        },
+        {
+            "id": 32,
+            "content": "ViewLayer",
+            "column_min": 2636,
+            "row_min": 61,
+            "column_max": 2744,
+            "row_max": 84,
+            "width": 108,
+            "height": 23
+        },
+        {
+            "id": 33,
+            "content": "Search",
+            "column_min": 2621,
+            "row_min": 116,
+            "column_max": 2690,
+            "row_max": 131,
+            "width": 69,
+            "height": 15
+        },
+        {
+            "id": 34,
+            "content": "Scene Collection",
+            "column_min": 2471,
+            "row_min": 165,
+            "column_max": 2642,
+            "row_max": 181,
+            "width": 171,
+            "height": 16
+        },
+        {
+            "id": 35,
+            "content": "Collection",
+            "column_min": 2511,
+            "row_min": 204,
+            "column_max": 2613,
+            "row_max": 222,
+            "width": 102,
+            "height": 18
+        },
+        {
+            "id": 36,
+            "content": "Camera",
+            "column_min": 2551,
+            "row_min": 245,
+            "column_max": 2629,
+            "row_max": 260,
+            "width": 78,
+            "height": 15
+        },
+        {
+            "id": 37,
+            "content": "Cube",
+            "column_min": 2551,
+            "row_min": 286,
+            "column_max": 2605,
+            "row_max": 300,
+            "width": 54,
+            "height": 14
+        },
+        {
+            "id": 38,
+            "content": "Light",
+            "column_min": 2550,
+            "row_min": 324,
+            "column_max": 2601,
+            "row_max": 344,
+            "width": 51,
+            "height": 20
+        },
+        {
+            "id": 39,
+            "content": "80",
+            "column_min": 2413,
+            "row_min": 611,
+            "column_max": 2437,
+            "row_max": 643,
+            "width": 24,
+            "height": 32
+        },
+        {
+            "id": 40,
+            "content": "IC",
+            "column_min": 2401,
+            "row_min": 681,
+            "column_max": 2426,
+            "row_max": 695,
+            "width": 25,
+            "height": 14
+        },
+        {
+            "id": 41,
+            "content": "Cube",
+            "column_min": 2509,
+            "row_min": 682,
+            "column_max": 2563,
+            "row_max": 697,
+            "width": 54,
+            "height": 15
+        },
+        {
+            "id": 42,
+            "content": "Search",
+            "column_min": 2569,
+            "row_min": 620,
+            "column_max": 2638,
+            "row_max": 634,
+            "width": 69,
+            "height": 14
+        },
+        {
+            "id": 43,
+            "content": "Cube",
+            "column_min": 2535,
+            "row_min": 754,
+            "column_max": 2589,
+            "row_max": 769,
+            "width": 54,
+            "height": 15
+        },
+        {
+            "id": 44,
+            "content": "Transform",
+            "column_min": 2502,
+            "row_min": 819,
+            "column_max": 2611,
+            "row_max": 836,
+            "width": 109,
+            "height": 17
+        },
+        {
+            "id": 45,
+            "content": "Location",
+            "column_min": 2491,
+            "row_min": 879,
+            "column_max": 2576,
+            "row_max": 895,
+            "width": 85,
+            "height": 16
+        },
+        {
+            "id": 46,
+            "content": "0m",
+            "column_min": 2672,
+            "row_min": 877,
+            "column_max": 2711,
+            "row_max": 896,
+            "width": 39,
+            "height": 19
+        },
+        {
+            "id": 47,
+            "content": "0m",
+            "column_min": 2672,
+            "row_min": 918,
+            "column_max": 2711,
+            "row_max": 936,
+            "width": 39,
+            "height": 18
+        },
+        {
+            "id": 48,
+            "content": "0m",
+            "column_min": 2672,
+            "row_min": 957,
+            "column_max": 2711,
+            "row_max": 976,
+            "width": 39,
+            "height": 19
+        },
+        {
+            "id": 49,
+            "content": "Rotation",
+            "column_min": 2495,
+            "row_min": 1010,
+            "column_max": 2575,
+            "row_max": 1026,
+            "width": 80,
+            "height": 16
+        },
+        {
+            "id": 50,
+            "content": "0 \u00b0",
+            "column_min": 2680,
+            "row_min": 1010,
+            "column_max": 2704,
+            "row_max": 1026,
+            "width": 24,
+            "height": 16
+        },
+        {
+            "id": 51,
+            "content": "0 \u00b0",
+            "column_min": 2679,
+            "row_min": 1049,
+            "column_max": 2704,
+            "row_max": 1064,
+            "width": 25,
+            "height": 15
+        },
+        {
+            "id": 52,
+            "content": "Mode",
+            "column_min": 2542,
+            "row_min": 1139,
+            "column_max": 2598,
+            "row_max": 1156,
+            "width": 56,
+            "height": 17
+        },
+        {
+            "id": 53,
+            "content": "XYZ Euler",
+            "column_min": 2632,
+            "row_min": 1141,
+            "column_max": 2735,
+            "row_max": 1156,
+            "width": 103,
+            "height": 15
+        },
+        {
+            "id": 54,
+            "content": "Scale",
+            "column_min": 2522,
+            "row_min": 1190,
+            "column_max": 2579,
+            "row_max": 1206,
+            "width": 57,
+            "height": 16
+        },
+        {
+            "id": 55,
+            "content": "1.000",
+            "column_min": 2664,
+            "row_min": 1191,
+            "column_max": 2723,
+            "row_max": 1205,
+            "width": 59,
+            "height": 14
+        },
+        {
+            "id": 56,
+            "content": "1.000",
+            "column_min": 2662,
+            "row_min": 1229,
+            "column_max": 2720,
+            "row_max": 1244,
+            "width": 58,
+            "height": 15
+        },
+        {
+            "id": 57,
+            "content": "1.000",
+            "column_min": 2662,
+            "row_min": 1270,
+            "column_max": 2721,
+            "row_max": 1285,
+            "width": 59,
+            "height": 15
+        },
+        {
+            "id": 58,
+            "content": "Delta Transform",
+            "column_min": 2530,
+            "row_min": 1332,
+            "column_max": 2691,
+            "row_max": 1348,
+            "width": 161,
+            "height": 16
+        },
+        {
+            "id": 59,
+            "content": "Relations",
+            "column_min": 2501,
+            "row_min": 1384,
+            "column_max": 2601,
+            "row_max": 1404,
+            "width": 100,
+            "height": 20
+        },
+        {
+            "id": 60,
+            "content": "Collections",
+            "column_min": 2501,
+            "row_min": 1440,
+            "column_max": 2623,
+            "row_max": 1458,
+            "width": 122,
+            "height": 18
+        },
+        {
+            "id": 61,
+            "content": "Instancing",
+            "column_min": 2500,
+            "row_min": 1492,
+            "column_max": 2616,
+            "row_max": 1515,
+            "width": 116,
+            "height": 23
+        },
+        {
+            "id": 62,
+            "content": "Motion Paths",
+            "column_min": 2500,
+            "row_min": 1547,
+            "column_max": 2645,
+            "row_max": 1564,
+            "width": 145,
+            "height": 17
+        },
+        {
+            "id": 63,
+            "content": "Keying",
+            "column_min": 247,
+            "row_min": 1562,
+            "column_max": 316,
+            "row_max": 1580,
+            "width": 69,
+            "height": 18
+        },
+        {
+            "id": 64,
+            "content": "View",
+            "column_min": 370,
+            "row_min": 1562,
+            "column_max": 419,
+            "row_max": 1577,
+            "width": 49,
+            "height": 15
+        },
+        {
+            "id": 65,
+            "content": "Marker",
+            "column_min": 451,
+            "row_min": 1560,
+            "column_max": 520,
+            "row_max": 1577,
+            "width": 69,
+            "height": 17
+        },
+        {
+            "id": 66,
+            "content": "Start",
+            "column_min": 2047,
+            "row_min": 1560,
+            "column_max": 2096,
+            "row_max": 1577,
+            "width": 49,
+            "height": 17
+        },
+        {
+            "id": 67,
+            "content": "End",
+            "column_min": 2224,
+            "row_min": 1560,
+            "column_max": 2262,
+            "row_max": 1577,
+            "width": 38,
+            "height": 17
+        },
+        {
+            "id": 68,
+            "content": "250",
+            "column_min": 2294,
+            "row_min": 1561,
+            "column_max": 2335,
+            "row_max": 1576,
+            "width": 41,
+            "height": 15
+        },
+        {
+            "id": 69,
+            "content": "20",
+            "column_min": 242,
+            "row_min": 1610,
+            "column_max": 269,
+            "row_max": 1624,
+            "width": 27,
+            "height": 14
+        },
+        {
+            "id": 70,
+            "content": "40",
+            "column_min": 419,
+            "row_min": 1609,
+            "column_max": 445,
+            "row_max": 1624,
+            "width": 26,
+            "height": 15
+        },
+        {
+            "id": 71,
+            "content": "60",
+            "column_min": 597,
+            "row_min": 1610,
+            "column_max": 624,
+            "row_max": 1624,
+            "width": 27,
+            "height": 14
+        },
+        {
+            "id": 72,
+            "content": "80",
+            "column_min": 772,
+            "row_min": 1610,
+            "column_max": 799,
+            "row_max": 1624,
+            "width": 27,
+            "height": 14
+        },
+        {
+            "id": 73,
+            "content": "100",
+            "column_min": 943,
+            "row_min": 1610,
+            "column_max": 983,
+            "row_max": 1623,
+            "width": 40,
+            "height": 13
+        },
+        {
+            "id": 74,
+            "content": "120",
+            "column_min": 1120,
+            "row_min": 1609,
+            "column_max": 1161,
+            "row_max": 1624,
+            "width": 41,
+            "height": 15
+        },
+        {
+            "id": 75,
+            "content": "140",
+            "column_min": 1297,
+            "row_min": 1608,
+            "column_max": 1337,
+            "row_max": 1624,
+            "width": 40,
+            "height": 16
+        },
+        {
+            "id": 76,
+            "content": "160",
+            "column_min": 1474,
+            "row_min": 1610,
+            "column_max": 1514,
+            "row_max": 1624,
+            "width": 40,
+            "height": 14
+        },
+        {
+            "id": 77,
+            "content": "180",
+            "column_min": 1651,
+            "row_min": 1609,
+            "column_max": 1689,
+            "row_max": 1624,
+            "width": 38,
+            "height": 15
+        },
+        {
+            "id": 78,
+            "content": "200",
+            "column_min": 1827,
+            "row_min": 1609,
+            "column_max": 1867,
+            "row_max": 1624,
+            "width": 40,
+            "height": 15
+        },
+        {
+            "id": 79,
+            "content": "220",
+            "column_min": 2004,
+            "row_min": 1609,
+            "column_max": 2045,
+            "row_max": 1625,
+            "width": 41,
+            "height": 16
+        },
+        {
+            "id": 80,
+            "content": "240",
+            "column_min": 2181,
+            "row_min": 1610,
+            "column_max": 2222,
+            "row_max": 1624,
+            "width": 41,
+            "height": 14
+        },
+        {
+            "id": 81,
+            "content": "Shading",
+            "column_min": 2501,
+            "row_min": 1599,
+            "column_max": 2590,
+            "row_max": 1622,
+            "width": 89,
+            "height": 23
+        },
+        {
+            "id": 82,
+            "content": "Playback",
+            "column_min": 106,
+            "row_min": 1562,
+            "column_max": 199,
+            "row_max": 1581,
+            "width": 93,
+            "height": 19
+        },
+        {
+            "id": 83,
+            "content": "Resize",
+            "column_min": 57,
+            "row_min": 1667,
+            "column_max": 124,
+            "row_max": 1697,
+            "width": 67,
+            "height": 30
+        },
+        {
+            "id": 84,
+            "content": "Options",
+            "column_min": 173,
+            "row_min": 1669,
+            "column_max": 254,
+            "row_max": 1699,
+            "width": 81,
+            "height": 30
+        },
+        {
+            "id": 85,
+            "content": "33",
+            "column_min": 64,
+            "row_min": 1728,
+            "column_max": 86,
+            "row_max": 1741,
+            "width": 22,
+            "height": 13
+        },
+        {
+            "id": 86,
+            "content": "JA",
+            "column_min": 1069,
+            "row_min": 1741,
+            "column_max": 1109,
+            "row_max": 1765,
+            "width": 40,
+            "height": 24
+        },
+        {
+            "id": 87,
+            "content": "\u039f O",
+            "column_min": 2825,
+            "row_min": 199,
+            "column_max": 2850,
+            "row_max": 220,
+            "width": 25,
+            "height": 21
+        },
+        {
+            "id": 88,
+            "content": "\u039f O",
+            "column_min": 2825,
+            "row_min": 278,
+            "column_max": 2850,
+            "row_max": 303,
+            "width": 25,
+            "height": 25
+        },
+        {
+            "id": 89,
+            "content": "\u0434\u0434\u0434\u0434\u0434\u0434",
+            "column_min": 2780,
+            "row_min": 878,
+            "column_max": 2801,
+            "row_max": 1108,
+            "width": 21,
+            "height": 230
+        },
+        {
+            "id": 90,
+            "content": "3:17 AM",
+            "column_min": 2707,
+            "row_min": 1728,
+            "column_max": 2791,
+            "row_max": 1745,
+            "width": 84,
+            "height": 17
+        },
+        {
+            "id": 91,
+            "content": "1/2/2025",
+            "column_min": 2698,
+            "row_min": 1760,
+            "column_max": 2794,
+            "row_max": 1778,
+            "width": 96,
+            "height": 18
+        },
+        {
+            "id": 92,
+            "content": "4.3.2",
+            "column_min": 2803,
+            "row_min": 1675,
+            "column_max": 2858,
+            "row_max": 1691,
+            "width": 55,
+            "height": 16
+        }
+    ]
+}

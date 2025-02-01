@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+  font-family: "Chubby";
+  src: url("/fonts/Chu_bby-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "space";
+  src: url("/fonts/space.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Apply Global Font */
+:root {
+  --font-sans: "space";
+}
+
+/* Ensure `body` uses the correct font */
+body {
+  font-family: var(--font-sans);
+}
+
+
+
+
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 12% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 12% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 12% 16%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 14% 95%;
+    --secondary-foreground: 212 92% 45%;
+    --muted: 210 14% 93%;
+    --muted-foreground: 210 12% 43%;
+    --accent: 44 96% 67%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 14% 89%;
+    --input: 210 14% 89%;
+    --ring: 212 92% 45%;
+    --chart-1: 212 92% 45%;
+    --chart-2: 150 60% 54%;
+    --chart-3: 200 65% 57%;
+    --chart-4: 340 82% 56%;
+    --chart-5: 25 85% 57%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 210 12% 8%;
+    --foreground: 210 14% 93%;
+    --card: 210 12% 10%;
+    --card-foreground: 210 14% 93%;
+    --popover: 210 12% 10%;
+    --popover-foreground: 210 14% 93%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 210 12% 8%;
+    --secondary: 210 12% 18%;
+    --secondary-foreground: 212 92% 55%;
+    --muted: 210 12% 15%;
+    --muted-foreground: 210 14% 65%;
+    --accent: 44 96% 67%;
+    --accent-foreground: 210 12% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 216 12% 8%;
+    --input: 210 12% 18%;
+    --ring: 212 92% 55%;
+    --chart-1: 212 92% 55%;
+    --chart-2: 150 60% 54%;
+    --chart-3: 200 65% 57%;
+    --chart-4: 340 82% 56%;
+    --chart-5: 25 85% 57%;
+    --radius: 0.75rem;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

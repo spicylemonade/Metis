@@ -1,0 +1,4 @@
+selenium
+openai
+cryptography
+python-dotenv

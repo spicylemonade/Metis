@@ -1,0 +1,8 @@
+[package]
+name = "action_executor"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+pyo3 = { version = "0.18", features = ["extension-module"] }
