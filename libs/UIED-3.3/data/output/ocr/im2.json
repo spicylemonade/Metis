@@ -6,974 +6,1708 @@
     ],
     "texts": [
         {
-            "id": 0,
-            "content": "File",
-            "column_min": 45,
-            "row_min": 16,
-            "column_max": 71,
-            "row_max": 29,
-            "width": 26,
-            "height": 13
-        },
-        {
-            "id": 1,
-            "content": "Edit",
-            "column_min": 94,
-            "row_min": 16,
-            "column_max": 123,
-            "row_max": 29,
-            "width": 29,
-            "height": 13
-        },
-        {
-            "id": 2,
-            "content": "Render",
-            "column_min": 145,
-            "row_min": 16,
-            "column_max": 198,
-            "row_max": 29,
-            "width": 53,
-            "height": 13
-        },
-        {
-            "id": 3,
-            "content": "Window",
-            "column_min": 219,
-            "row_min": 14,
-            "column_max": 279,
-            "row_max": 31,
-            "width": 60,
-            "height": 17
-        },
-        {
-            "id": 4,
-            "content": "Help",
-            "column_min": 303,
-            "row_min": 16,
-            "column_max": 340,
-            "row_max": 33,
-            "width": 37,
-            "height": 17
-        },
-        {
-            "id": 5,
-            "content": "Layout",
-            "column_min": 387,
-            "row_min": 21,
-            "column_max": 438,
-            "row_max": 36,
-            "width": 51,
-            "height": 15
-        },
-        {
-            "id": 6,
-            "content": "Modeling",
-            "column_min": 468,
-            "row_min": 20,
-            "column_max": 534,
-            "row_max": 36,
-            "width": 66,
-            "height": 16
-        },
-        {
-            "id": 7,
-            "content": "Sculpting",
-            "column_min": 564,
-            "row_min": 19,
-            "column_max": 633,
-            "row_max": 37,
-            "width": 69,
-            "height": 18
-        },
-        {
-            "id": 8,
-            "content": "UV Editing",
-            "column_min": 664,
-            "row_min": 21,
-            "column_max": 743,
-            "row_max": 35,
-            "width": 79,
-            "height": 14
-        },
-        {
             "id": 9,
-            "content": "Texture Paint",
-            "column_min": 772,
-            "row_min": 20,
-            "column_max": 869,
+            "column_min": 7,
+            "row_min": 11,
+            "column_max": 30,
             "row_max": 34,
-            "width": 97,
-            "height": 14
+            "content": "%\u00ae"
         },
         {
             "id": 10,
-            "content": "Shading",
-            "column_min": 899,
-            "row_min": 18,
-            "column_max": 959,
-            "row_max": 36,
-            "width": 60,
-            "height": 18
+            "column_min": 46,
+            "row_min": 16,
+            "column_max": 72,
+            "row_max": 30,
+            "content": "File"
         },
         {
             "id": 11,
-            "content": "Animation",
-            "column_min": 987,
-            "row_min": 21,
-            "column_max": 1066,
-            "row_max": 34,
-            "width": 79,
-            "height": 13
+            "column_min": 95,
+            "row_min": 16,
+            "column_max": 123,
+            "row_max": 30,
+            "content": "Edit"
         },
         {
             "id": 12,
-            "content": "Global",
-            "column_min": 1031,
-            "row_min": 60,
-            "column_max": 1081,
-            "row_max": 75,
-            "width": 50,
-            "height": 15
+            "column_min": 146,
+            "row_min": 16,
+            "column_max": 198,
+            "row_max": 30,
+            "content": "Render"
         },
         {
             "id": 13,
-            "content": "Object Mode",
-            "column_min": 44,
-            "row_min": 100,
-            "column_max": 139,
-            "row_max": 117,
-            "width": 95,
-            "height": 17
+            "column_min": 221,
+            "row_min": 16,
+            "column_max": 279,
+            "row_max": 30,
+            "content": "Window"
         },
         {
             "id": 14,
-            "content": "View",
-            "column_min": 187,
-            "row_min": 102,
-            "column_max": 224,
-            "row_max": 114,
-            "width": 37,
-            "height": 12
-        },
-        {
-            "id": 15,
-            "content": "Select",
-            "column_min": 248,
-            "row_min": 101,
-            "column_max": 295,
-            "row_max": 114,
-            "width": 47,
-            "height": 13
+            "column_min": 304,
+            "row_min": 16,
+            "column_max": 338,
+            "row_max": 33,
+            "content": "Help"
         },
         {
             "id": 16,
-            "content": "Add Object",
-            "column_min": 317,
-            "row_min": 98,
-            "column_max": 419,
-            "row_max": 116,
-            "width": 102,
-            "height": 18
+            "column_min": 469,
+            "row_min": 21,
+            "column_max": 535,
+            "row_max": 37,
+            "content": "Modeling"
         },
         {
             "id": 17,
-            "content": "User Perspective",
-            "column_min": 108,
-            "row_min": 146,
-            "column_max": 233,
-            "row_max": 164,
-            "width": 125,
-            "height": 18
+            "column_min": 566,
+            "row_min": 21,
+            "column_max": 634,
+            "row_max": 37,
+            "content": "Sculpting"
         },
         {
             "id": 18,
-            "content": "Collection Cube",
-            "column_min": 134,
-            "row_min": 177,
-            "column_max": 260,
-            "row_max": 196,
-            "width": 126,
-            "height": 19
+            "column_min": 665,
+            "row_min": 21,
+            "column_max": 742,
+            "row_max": 37,
+            "content": "UVEditing"
         },
         {
             "id": 19,
-            "content": "Playback",
-            "column_min": 71,
-            "row_min": 1496,
-            "column_max": 138,
-            "row_max": 1516,
-            "width": 67,
-            "height": 20
+            "column_min": 773,
+            "row_min": 21,
+            "column_max": 828,
+            "row_max": 34,
+            "content": "Texture"
         },
         {
             "id": 20,
-            "content": "Keying",
-            "column_min": 174,
-            "row_min": 1496,
-            "column_max": 227,
-            "row_max": 1515,
-            "width": 53,
-            "height": 19
+            "column_min": 834,
+            "row_min": 21,
+            "column_max": 869,
+            "row_max": 34,
+            "content": "Paint"
         },
         {
             "id": 21,
-            "content": "View",
-            "column_min": 261,
-            "row_min": 1496,
-            "column_max": 299,
-            "row_max": 1514,
-            "width": 38,
-            "height": 18
+            "column_min": 901,
+            "row_min": 20,
+            "column_max": 958,
+            "row_max": 37,
+            "content": "Shading"
         },
         {
             "id": 22,
-            "content": "10",
-            "column_min": 149,
-            "row_min": 1536,
-            "column_max": 167,
-            "row_max": 1549,
-            "width": 18,
-            "height": 13
+            "column_min": 988,
+            "row_min": 21,
+            "column_max": 1065,
+            "row_max": 34,
+            "content": "Animation"
         },
         {
             "id": 23,
-            "content": "Select",
-            "column_min": 42,
-            "row_min": 1611,
-            "column_max": 90,
-            "row_max": 1624,
-            "width": 48,
-            "height": 13
+            "column_min": 1096,
+            "row_min": 21,
+            "column_max": 1170,
+            "row_max": 37,
+            "content": "Rendering"
         },
         {
             "id": 24,
-            "content": "Box Select",
-            "column_min": 143,
-            "row_min": 1611,
-            "column_max": 223,
-            "row_max": 1624,
-            "width": 80,
-            "height": 13
+            "column_min": 1200,
+            "row_min": 21,
+            "column_max": 1293,
+            "row_max": 37,
+            "content": "Compositing"
         },
         {
             "id": 25,
-            "content": "20",
-            "column_min": 236,
-            "row_min": 1537,
-            "column_max": 257,
-            "row_max": 1549,
-            "width": 21,
-            "height": 12
+            "column_min": 1324,
+            "row_min": 21,
+            "column_max": 1389,
+            "row_max": 37,
+            "content": "Scripting"
         },
         {
             "id": 26,
-            "content": "Rendering",
-            "column_min": 1095,
-            "row_min": 19,
-            "column_max": 1170,
-            "row_max": 36,
-            "width": 75,
-            "height": 17
+            "column_min": 1414,
+            "row_min": 20,
+            "column_max": 1427,
+            "row_max": 34,
+            "content": "+"
         },
         {
             "id": 27,
-            "content": "Compositing",
-            "column_min": 1199,
-            "row_min": 20,
-            "column_max": 1293,
-            "row_max": 37,
-            "width": 94,
-            "height": 17
+            "column_min": 2285,
+            "row_min": 11,
+            "column_max": 2321,
+            "row_max": 34,
+            "content": "&Sy"
         },
         {
             "id": 28,
-            "content": "Scripting +",
-            "column_min": 1322,
-            "row_min": 19,
-            "column_max": 1427,
-            "row_max": 37,
-            "width": 105,
-            "height": 18
+            "column_min": 2337,
+            "row_min": 16,
+            "column_max": 2381,
+            "row_max": 30,
+            "content": "Scene"
         },
         {
             "id": 29,
-            "content": "Marker",
-            "column_min": 324,
-            "row_min": 1497,
-            "column_max": 378,
-            "row_max": 1512,
-            "width": 54,
-            "height": 15
+            "column_min": 2506,
+            "row_min": 11,
+            "column_max": 2554,
+            "row_max": 36,
+            "content": "(x"
         },
         {
             "id": 30,
-            "content": "Start",
-            "column_min": 2108,
-            "row_min": 1498,
-            "column_max": 2143,
-            "row_max": 1512,
-            "width": 35,
-            "height": 14
+            "column_min": 2580,
+            "row_min": 11,
+            "column_max": 2616,
+            "row_max": 34,
+            "content": "Wy"
         },
         {
             "id": 31,
-            "content": "End",
-            "column_min": 2241,
-            "row_min": 1500,
-            "column_max": 2268,
-            "row_max": 1512,
-            "width": 27,
-            "height": 12
+            "column_min": 2632,
+            "row_min": 16,
+            "column_max": 2668,
+            "row_max": 30,
+            "content": "View"
         },
         {
             "id": 32,
-            "content": "250",
-            "column_min": 2290,
-            "row_min": 1499,
-            "column_max": 2322,
-            "row_max": 1511,
-            "width": 32,
-            "height": 12
-        },
-        {
-            "id": 33,
-            "content": "30",
-            "column_min": 325,
-            "row_min": 1538,
-            "column_max": 346,
-            "row_max": 1550,
-            "width": 21,
-            "height": 12
+            "column_min": 2675,
+            "row_min": 16,
+            "column_max": 2716,
+            "row_max": 33,
+            "content": "Layer"
         },
         {
             "id": 34,
-            "content": "40",
-            "column_min": 412,
-            "row_min": 1538,
-            "column_max": 434,
-            "row_max": 1549,
-            "width": 22,
-            "height": 11
+            "column_min": 125,
+            "row_min": 49,
+            "column_max": 236,
+            "row_max": 93,
+            "content": "Giead"
         },
         {
             "id": 35,
-            "content": "50",
-            "column_min": 501,
-            "row_min": 1537,
-            "column_max": 523,
-            "row_max": 1550,
-            "width": 22,
-            "height": 13
+            "column_min": 1000,
+            "row_min": 56,
+            "column_max": 1021,
+            "row_max": 79,
+            "content": "1"
         },
         {
             "id": 36,
-            "content": "60",
-            "column_min": 591,
-            "row_min": 1538,
-            "column_max": 611,
-            "row_max": 1550,
-            "width": 20,
-            "height": 12
+            "column_min": 1032,
+            "row_min": 60,
+            "column_max": 1078,
+            "row_max": 75,
+            "content": "Global"
         },
         {
             "id": 37,
-            "content": "70",
-            "column_min": 678,
-            "row_min": 1538,
-            "column_max": 700,
-            "row_max": 1550,
-            "width": 22,
-            "height": 12
+            "column_min": 1097,
+            "row_min": 65,
+            "column_max": 1108,
+            "row_max": 72,
+            "content": "v"
         },
         {
             "id": 38,
-            "content": "80",
-            "column_min": 767,
-            "row_min": 1537,
-            "column_max": 788,
-            "row_max": 1550,
-            "width": 21,
-            "height": 13
+            "column_min": 1127,
+            "row_min": 56,
+            "column_max": 1163,
+            "row_max": 79,
+            "content": "Pv"
         },
         {
             "id": 39,
-            "content": "90",
-            "column_min": 856,
-            "row_min": 1537,
-            "column_max": 877,
-            "row_max": 1549,
-            "width": 21,
-            "height": 12
+            "column_min": 1178,
+            "row_min": 56,
+            "column_max": 1249,
+            "row_max": 80,
+            "content": "Buty"
         },
         {
             "id": 40,
-            "content": "100",
-            "column_min": 939,
-            "row_min": 1538,
-            "column_max": 969,
-            "row_max": 1550,
-            "width": 30,
-            "height": 12
+            "column_min": 1267,
+            "row_min": 45,
+            "column_max": 1286,
+            "row_max": 89,
+            "content": "GB"
         },
         {
             "id": 41,
-            "content": "110",
-            "column_min": 1027,
-            "row_min": 1538,
-            "column_max": 1057,
-            "row_max": 1550,
-            "width": 30,
-            "height": 12
+            "column_min": 1297,
+            "row_min": 58,
+            "column_max": 1333,
+            "row_max": 78,
+            "content": "Av"
         },
         {
             "id": 42,
-            "content": "120",
-            "column_min": 1115,
-            "row_min": 1536,
-            "column_max": 1146,
-            "row_max": 1550,
-            "width": 31,
-            "height": 14
+            "column_min": 2278,
+            "row_min": 60,
+            "column_max": 2335,
+            "row_max": 78,
+            "content": "open"
         },
         {
             "id": 43,
-            "content": "130",
-            "column_min": 1205,
-            "row_min": 1538,
-            "column_max": 1235,
-            "row_max": 1550,
-            "width": 30,
-            "height": 12
-        },
-        {
-            "id": 44,
-            "content": "140",
-            "column_min": 1293,
-            "row_min": 1536,
-            "column_max": 1322,
-            "row_max": 1550,
-            "width": 29,
-            "height": 14
-        },
-        {
-            "id": 45,
-            "content": "150",
-            "column_min": 1382,
-            "row_min": 1538,
-            "column_max": 1411,
-            "row_max": 1550,
-            "width": 29,
-            "height": 12
+            "column_min": 2345,
+            "row_min": 65,
+            "column_max": 2355,
+            "row_max": 72,
+            "content": "vil"
         },
         {
             "id": 46,
-            "content": "160",
-            "column_min": 1471,
-            "row_min": 1538,
-            "column_max": 1501,
-            "row_max": 1550,
-            "width": 30,
-            "height": 12
+            "column_min": 45,
+            "row_min": 92,
+            "column_max": 94,
+            "row_max": 126,
+            "content": "Object"
         },
         {
             "id": 47,
-            "content": "170",
-            "column_min": 1560,
-            "row_min": 1538,
-            "column_max": 1589,
-            "row_max": 1550,
-            "width": 29,
-            "height": 12
+            "column_min": 106,
+            "row_min": 92,
+            "column_max": 143,
+            "row_max": 126,
+            "content": "Mode"
         },
         {
             "id": 48,
-            "content": "180",
-            "column_min": 1648,
-            "row_min": 1536,
-            "column_max": 1679,
-            "row_max": 1551,
-            "width": 31,
-            "height": 15
+            "column_min": 155,
+            "row_min": 105,
+            "column_max": 166,
+            "row_max": 112,
+            "content": "v"
         },
         {
             "id": 49,
-            "content": "190",
-            "column_min": 1736,
-            "row_min": 1535,
-            "column_max": 1767,
-            "row_max": 1551,
-            "width": 31,
-            "height": 16
+            "column_min": 188,
+            "row_min": 101,
+            "column_max": 226,
+            "row_max": 115,
+            "content": "View"
         },
         {
             "id": 50,
-            "content": "200",
-            "column_min": 1822,
-            "row_min": 1536,
-            "column_max": 1853,
-            "row_max": 1550,
-            "width": 31,
-            "height": 14
+            "column_min": 249,
+            "row_min": 100,
+            "column_max": 295,
+            "row_max": 115,
+            "content": "Select"
         },
         {
             "id": 51,
-            "content": "210",
-            "column_min": 1911,
-            "row_min": 1538,
-            "column_max": 1943,
-            "row_max": 1550,
-            "width": 32,
-            "height": 12
+            "column_min": 318,
+            "row_min": 100,
+            "column_max": 346,
+            "row_max": 115,
+            "content": "Add"
         },
         {
             "id": 52,
-            "content": "220",
-            "column_min": 1999,
-            "row_min": 1538,
-            "column_max": 2031,
-            "row_max": 1550,
-            "width": 32,
-            "height": 12
+            "column_min": 369,
+            "row_min": 100,
+            "column_max": 418,
+            "row_max": 118,
+            "content": "Object"
         },
         {
             "id": 53,
-            "content": "230",
-            "column_min": 2088,
-            "row_min": 1538,
-            "column_max": 2120,
-            "row_max": 1550,
-            "width": 32,
-            "height": 12
+            "column_min": 1994,
+            "row_min": 96,
+            "column_max": 2030,
+            "row_max": 119,
+            "content": "\u00a9"
         },
         {
             "id": 54,
-            "content": "240",
-            "column_min": 2176,
-            "row_min": 1538,
-            "column_max": 2208,
-            "row_max": 1549,
-            "width": 32,
-            "height": 11
+            "column_min": 2043,
+            "row_min": 93,
+            "column_max": 2091,
+            "row_max": 123,
+            "content": "BR."
         },
         {
             "id": 55,
-            "content": "250",
-            "column_min": 2264,
-            "row_min": 1536,
-            "column_max": 2297,
-            "row_max": 1551,
-            "width": 33,
-            "height": 15
+            "column_min": 2111,
+            "row_min": 93,
+            "column_max": 2158,
+            "row_max": 123,
+            "content": "@-"
         },
         {
             "id": 56,
-            "content": "Pan View",
-            "column_min": 396,
-            "row_min": 1612,
-            "column_max": 465,
-            "row_max": 1626,
-            "width": 69,
-            "height": 14
+            "column_min": 2180,
+            "row_min": 95,
+            "column_max": 2204,
+            "row_max": 120,
+            "content": "a"
         },
         {
             "id": 57,
-            "content": "Context Menu",
-            "column_min": 751,
-            "row_min": 1611,
-            "column_max": 854,
-            "row_max": 1625,
-            "width": 103,
-            "height": 14
+            "column_min": 2218,
+            "row_min": 93,
+            "column_max": 2349,
+            "row_max": 123,
+            "content": "6800-"
         },
         {
             "id": 58,
-            "content": "Scene",
-            "column_min": 2336,
-            "row_min": 15,
-            "column_max": 2382,
-            "row_max": 29,
-            "width": 46,
-            "height": 14
+            "column_min": 2409,
+            "row_min": 95,
+            "column_max": 2431,
+            "row_max": 117,
+            "content": "i"
         },
         {
             "id": 59,
-            "content": "Options",
-            "column_min": 2277,
-            "row_min": 61,
-            "column_max": 2336,
-            "row_max": 77,
-            "width": 59,
-            "height": 16
+            "column_min": 2436,
+            "row_min": 89,
+            "column_max": 2482,
+            "row_max": 123,
+            "content": "Scene"
         },
         {
             "id": 60,
-            "content": "LBP",
-            "column_min": 2390,
-            "row_min": 673,
-            "column_max": 2408,
-            "row_max": 693,
-            "width": 18,
-            "height": 20
-        },
-        {
-            "id": 61,
-            "content": "Scene Collection",
-            "column_min": 2440,
-            "row_min": 97,
-            "column_max": 2565,
-            "row_max": 113,
-            "width": 125,
-            "height": 16
-        },
-        {
-            "id": 62,
-            "content": "Collection",
-            "column_min": 2500,
-            "row_min": 129,
-            "column_max": 2576,
-            "row_max": 146,
-            "width": 76,
-            "height": 17
-        },
-        {
-            "id": 63,
-            "content": "Camera",
-            "column_min": 2501,
-            "row_min": 164,
-            "column_max": 2560,
-            "row_max": 176,
-            "width": 59,
-            "height": 12
-        },
-        {
-            "id": 64,
-            "content": "CH",
-            "column_min": 2596,
-            "row_min": 172,
-            "column_max": 2614,
-            "row_max": 180,
-            "width": 18,
-            "height": 8
-        },
-        {
-            "id": 65,
-            "content": "Cube",
-            "column_min": 2501,
-            "row_min": 196,
-            "column_max": 2539,
-            "row_max": 208,
-            "width": 38,
-            "height": 12
-        },
-        {
-            "id": 66,
-            "content": "Light",
-            "column_min": 2501,
-            "row_min": 229,
-            "column_max": 2539,
-            "row_max": 243,
-            "width": 38,
-            "height": 14
-        },
-        {
-            "id": 67,
-            "content": "Cube",
-            "column_min": 2490,
-            "row_min": 562,
-            "column_max": 2529,
-            "row_max": 575,
-            "width": 39,
-            "height": 13
+            "column_min": 2491,
+            "row_min": 89,
+            "column_max": 2566,
+            "row_max": 123,
+            "content": "Collection"
         },
         {
             "id": 68,
-            "content": "View Layer",
-            "column_min": 2631,
-            "row_min": 14,
-            "column_max": 2718,
-            "row_max": 31,
-            "width": 87,
-            "height": 17
+            "column_min": 2415,
+            "row_min": 133,
+            "column_max": 2423,
+            "row_max": 143,
+            "content": "v"
         },
         {
             "id": 69,
-            "content": "Cube",
-            "column_min": 2487,
-            "row_min": 611,
-            "column_max": 2525,
-            "row_max": 624,
-            "width": 38,
-            "height": 13
+            "column_min": 2469,
+            "row_min": 126,
+            "column_max": 2491,
+            "row_max": 149,
+            "content": "B"
         },
         {
             "id": 70,
-            "content": "Transform",
-            "column_min": 2450,
-            "row_min": 660,
-            "column_max": 2532,
-            "row_max": 675,
-            "width": 82,
-            "height": 15
-        },
-        {
-            "id": 71,
-            "content": "Location",
-            "column_min": 2537,
-            "row_min": 707,
-            "column_max": 2601,
-            "row_max": 721,
-            "width": 64,
-            "height": 14
-        },
-        {
-            "id": 72,
-            "content": "0m",
-            "column_min": 2698,
-            "row_min": 708,
-            "column_max": 2729,
-            "row_max": 720,
-            "width": 31,
-            "height": 12
-        },
-        {
-            "id": 73,
-            "content": "0m",
-            "column_min": 2698,
-            "row_min": 738,
-            "column_max": 2730,
-            "row_max": 754,
-            "width": 32,
-            "height": 16
+            "column_min": 2502,
+            "row_min": 131,
+            "column_max": 2576,
+            "row_max": 145,
+            "content": "Collection"
         },
         {
             "id": 74,
-            "content": "a",
-            "column_min": 2810,
-            "row_min": 740,
-            "column_max": 2827,
-            "row_max": 755,
-            "width": 17,
-            "height": 15
-        },
-        {
-            "id": 75,
-            "content": "0m",
-            "column_min": 2698,
-            "row_min": 770,
-            "column_max": 2729,
-            "row_max": 783,
-            "width": 31,
-            "height": 13
-        },
-        {
-            "id": 76,
-            "content": "Rotation",
-            "column_min": 2539,
-            "row_min": 813,
-            "column_max": 2602,
-            "row_max": 826,
-            "width": 63,
-            "height": 13
-        },
-        {
-            "id": 77,
-            "content": "Ta",
-            "column_min": 2803,
-            "row_min": 845,
-            "column_max": 2824,
-            "row_max": 860,
-            "width": 21,
-            "height": 15
+            "column_min": 2802,
+            "row_min": 10,
+            "column_max": 2828,
+            "row_max": 36,
+            "content": "Co"
         },
         {
             "id": 78,
-            "content": "Mode",
-            "column_min": 2576,
-            "row_min": 918,
-            "column_max": 2618,
-            "row_max": 931,
-            "width": 42,
-            "height": 13
+            "column_min": 2783,
+            "row_min": 54,
+            "column_max": 2856,
+            "row_max": 78,
+            "content": "Y."
         },
         {
             "id": 79,
-            "content": "XYZ Euler",
-            "column_min": 2641,
-            "row_min": 918,
-            "column_max": 2716,
-            "row_max": 931,
-            "width": 75,
-            "height": 13
-        },
-        {
-            "id": 80,
-            "content": "Scale",
-            "column_min": 2560,
-            "row_min": 958,
-            "column_max": 2602,
-            "row_max": 971,
-            "width": 42,
-            "height": 13
-        },
-        {
-            "id": 81,
-            "content": "1.000",
-            "column_min": 2692,
-            "row_min": 958,
-            "column_max": 2736,
-            "row_max": 971,
-            "width": 44,
-            "height": 13
-        },
-        {
-            "id": 82,
-            "content": "1.000",
-            "column_min": 2692,
-            "row_min": 989,
-            "column_max": 2737,
-            "row_max": 1001,
-            "width": 45,
-            "height": 12
+            "column_min": 2835,
+            "row_min": 50,
+            "column_max": 2856,
+            "row_max": 90,
+            "content": "&"
         },
         {
             "id": 83,
-            "content": "1.000",
-            "column_min": 2692,
-            "row_min": 1018,
-            "column_max": 2737,
-            "row_max": 1035,
-            "width": 45,
-            "height": 17
-        },
-        {
-            "id": 84,
-            "content": "\u25baDelta Transform",
-            "column_min": 2450,
-            "row_min": 1072,
-            "column_max": 2587,
-            "row_max": 1085,
-            "width": 137,
-            "height": 13
+            "column_min": 2837,
+            "row_min": 128,
+            "column_max": 2856,
+            "row_max": 144,
+            "content": "\u00a9"
         },
         {
             "id": 85,
-            "content": "Relations",
-            "column_min": 2450,
-            "row_min": 1107,
-            "column_max": 2529,
-            "row_max": 1125,
-            "width": 79,
-            "height": 18
-        },
-        {
-            "id": 86,
-            "content": "Collections",
-            "column_min": 2448,
-            "row_min": 1147,
-            "column_max": 2542,
-            "row_max": 1163,
-            "width": 94,
-            "height": 16
-        },
-        {
-            "id": 87,
-            "content": "Instancing",
-            "column_min": 2449,
-            "row_min": 1185,
-            "column_max": 2535,
-            "row_max": 1203,
-            "width": 86,
-            "height": 18
-        },
-        {
-            "id": 88,
-            "content": "Motion Paths",
-            "column_min": 2449,
-            "row_min": 1225,
-            "column_max": 2560,
-            "row_max": 1239,
-            "width": 111,
-            "height": 14
-        },
-        {
-            "id": 89,
-            "content": "Visibility",
-            "column_min": 2448,
-            "row_min": 1262,
-            "column_max": 2521,
-            "row_max": 1280,
-            "width": 73,
-            "height": 18
-        },
-        {
-            "id": 90,
-            "content": "Viewport Display",
-            "column_min": 2447,
-            "row_min": 1301,
-            "column_max": 2592,
-            "row_max": 1320,
-            "width": 145,
-            "height": 19
-        },
-        {
-            "id": 91,
-            "content": "Custom Properties",
-            "column_min": 2450,
-            "row_min": 1338,
-            "column_max": 2603,
-            "row_max": 1357,
-            "width": 153,
-            "height": 19
-        },
-        {
-            "id": 92,
-            "content": "Collection Cube Verts :",
-            "column_min": 2195,
-            "row_min": 1613,
-            "column_max": 2378,
-            "row_max": 1626,
-            "width": 183,
-            "height": 13
+            "column_min": 2837,
+            "row_min": 160,
+            "column_max": 2856,
+            "row_max": 176,
+            "content": "\u00a9"
         },
         {
             "id": 93,
-            "content": "Faces :",
-            "column_min": 2402,
-            "row_min": 1613,
-            "column_max": 2451,
-            "row_max": 1626,
-            "width": 49,
-            "height": 13
+            "column_min": 108,
+            "row_min": 148,
+            "column_max": 143,
+            "row_max": 162,
+            "content": "User"
         },
         {
             "id": 94,
-            "content": "Tris : 12 Obiects 1/3 Mem : 24.7 MiB v2.82.7",
-            "column_min": 2473,
-            "row_min": 1613,
-            "column_max": 2827,
-            "row_max": 1626,
-            "width": 354,
-            "height": 13
+            "column_min": 148,
+            "row_min": 147,
+            "column_max": 232,
+            "row_max": 165,
+            "content": "Perspective"
         },
         {
             "id": 95,
-            "content": ".",
-            "column_min": 2841,
-            "row_min": 816,
-            "column_max": 2849,
-            "row_max": 822,
-            "width": 8,
-            "height": 6
+            "column_min": 2363,
+            "row_min": 158,
+            "column_max": 2368,
+            "row_max": 169,
+            "content": ";"
         },
         {
-            "id": 96,
-            "content": "0000",
-            "column_min": 2832,
-            "row_min": 127,
-            "column_max": 2855,
-            "row_max": 242,
-            "width": 23,
-            "height": 115
+            "id": 97,
+            "column_min": 2502,
+            "row_min": 164,
+            "column_max": 2560,
+            "row_max": 177,
+            "content": "Camera"
+        },
+        {
+            "id": 99,
+            "column_min": 5,
+            "row_min": 139,
+            "column_max": 71,
+            "row_max": 203,
+            "content": "Sy"
+        },
+        {
+            "id": 100,
+            "column_min": 109,
+            "row_min": 179,
+            "column_max": 129,
+            "row_max": 196,
+            "content": "(1)"
+        },
+        {
+            "id": 101,
+            "column_min": 135,
+            "row_min": 179,
+            "column_max": 210,
+            "row_max": 194,
+            "content": "Collection"
+        },
+        {
+            "id": 102,
+            "column_min": 215,
+            "row_min": 179,
+            "column_max": 218,
+            "row_max": 197,
+            "content": "|"
+        },
+        {
+            "id": 103,
+            "column_min": 224,
+            "row_min": 178,
+            "column_max": 261,
+            "row_max": 194,
+            "content": "Cube"
+        },
+        {
+            "id": 104,
+            "column_min": 2247,
+            "row_min": 192,
+            "column_max": 2278,
+            "row_max": 226,
+            "content": "e"
+        },
+        {
+            "id": 105,
+            "column_min": 2283,
+            "row_min": 144,
+            "column_max": 2307,
+            "row_max": 215,
+            "content": "\u00b0"
+        },
+        {
+            "id": 106,
+            "column_min": 2471,
+            "row_min": 172,
+            "column_max": 2491,
+            "row_max": 181,
+            "content": "\u00a9"
+        },
+        {
+            "id": 107,
+            "column_min": 2590,
+            "row_min": 155,
+            "column_max": 2619,
+            "row_max": 183,
+            "content": "2"
+        },
+        {
+            "id": 111,
+            "column_min": 2470,
+            "row_min": 222,
+            "column_max": 2489,
+            "row_max": 246,
+            "content": "\u00ae"
+        },
+        {
+            "id": 112,
+            "column_min": 2502,
+            "row_min": 227,
+            "column_max": 2539,
+            "row_max": 245,
+            "content": "Light"
+        },
+        {
+            "id": 113,
+            "column_min": 2573,
+            "row_min": 222,
+            "column_max": 2593,
+            "row_max": 246,
+            "content": "\u00a9"
+        },
+        {
+            "id": 117,
+            "column_min": 2394,
+            "row_min": 557,
+            "column_max": 2430,
+            "row_max": 580,
+            "content": "Sv"
+        },
+        {
+            "id": 118,
+            "column_min": 2456,
+            "row_min": 557,
+            "column_max": 2477,
+            "row_max": 580,
+            "content": "WH"
+        },
+        {
+            "id": 119,
+            "column_min": 2491,
+            "row_min": 561,
+            "column_max": 2529,
+            "row_max": 576,
+            "content": "Cube"
+        },
+        {
+            "id": 123,
+            "column_min": 16,
+            "row_min": 506,
+            "column_max": 54,
+            "row_max": 598,
+            "content": "rN"
+        },
+        {
+            "id": 124,
+            "column_min": 16,
+            "row_min": 272,
+            "column_max": 51,
+            "row_max": 464,
+            "content": "ena+"
+        },
+        {
+            "id": 128,
+            "column_min": 2387,
+            "row_min": 613,
+            "column_max": 2408,
+            "row_max": 636,
+            "content": "uy"
+        },
+        {
+            "id": 129,
+            "column_min": 2436,
+            "row_min": 607,
+            "column_max": 2472,
+            "row_max": 630,
+            "content": "My"
+        },
+        {
+            "id": 130,
+            "column_min": 2488,
+            "row_min": 611,
+            "column_max": 2525,
+            "row_max": 625,
+            "content": "Cube"
+        },
+        {
+            "id": 150,
+            "column_min": 2383,
+            "row_min": 655,
+            "column_max": 2411,
+            "row_max": 697,
+            "content": "fa]"
+        },
+        {
+            "id": 151,
+            "column_min": 2431,
+            "row_min": 661,
+            "column_max": 2439,
+            "row_max": 671,
+            "content": "Y"
+        },
+        {
+            "id": 152,
+            "column_min": 2450,
+            "row_min": 659,
+            "column_max": 2534,
+            "row_max": 675,
+            "content": "Transform"
+        },
+        {
+            "id": 154,
+            "column_min": 2387,
+            "row_min": 716,
+            "column_max": 2408,
+            "row_max": 739,
+            "content": "7"
+        },
+        {
+            "id": 155,
+            "column_min": 2538,
+            "row_min": 700,
+            "column_max": 2602,
+            "row_max": 731,
+            "content": "Location"
+        },
+        {
+            "id": 156,
+            "column_min": 2608,
+            "row_min": 708,
+            "column_max": 2617,
+            "row_max": 721,
+            "content": "X"
+        },
+        {
+            "id": 157,
+            "column_min": 2699,
+            "row_min": 706,
+            "column_max": 2730,
+            "row_max": 722,
+            "content": "om"
+        },
+        {
+            "id": 158,
+            "column_min": 2795,
+            "row_min": 705,
+            "column_max": 2825,
+            "row_max": 723,
+            "content": "1%"
+        },
+        {
+            "id": 160,
+            "column_min": 2607,
+            "row_min": 732,
+            "column_max": 2623,
+            "row_max": 765,
+            "content": "Na"
+        },
+        {
+            "id": 161,
+            "column_min": 2699,
+            "row_min": 737,
+            "column_max": 2730,
+            "row_max": 754,
+            "content": "om"
+        },
+        {
+            "id": 162,
+            "column_min": 2804,
+            "row_min": 737,
+            "column_max": 2825,
+            "row_max": 755,
+            "content": "a)"
+        },
+        {
+            "id": 164,
+            "column_min": 626,
+            "row_min": 787,
+            "column_max": 631,
+            "row_max": 788,
+            "content": ";"
+        },
+        {
+            "id": 165,
+            "column_min": 823,
+            "row_min": 763,
+            "column_max": 828,
+            "row_max": 764,
+            "content": "-"
+        },
+        {
+            "id": 166,
+            "column_min": 2387,
+            "row_min": 757,
+            "column_max": 2411,
+            "row_max": 794,
+            "content": "1)"
+        },
+        {
+            "id": 167,
+            "column_min": 2602,
+            "row_min": 759,
+            "column_max": 2617,
+            "row_max": 795,
+            "content": "r4"
+        },
+        {
+            "id": 168,
+            "column_min": 2699,
+            "row_min": 769,
+            "column_max": 2730,
+            "row_max": 784,
+            "content": "om"
+        },
+        {
+            "id": 169,
+            "column_min": 2796,
+            "row_min": 764,
+            "column_max": 2825,
+            "row_max": 792,
+            "content": "1%"
+        },
+        {
+            "id": 171,
+            "column_min": 251,
+            "row_min": 830,
+            "column_max": 292,
+            "row_max": 835,
+            "content": "\u2014_"
+        },
+        {
+            "id": 173,
+            "column_min": 2387,
+            "row_min": 806,
+            "column_max": 2408,
+            "row_max": 830,
+            "content": "s"
+        },
+        {
+            "id": 174,
+            "column_min": 2540,
+            "row_min": 802,
+            "column_max": 2602,
+            "row_max": 840,
+            "content": "Rotation"
+        },
+        {
+            "id": 175,
+            "column_min": 2612,
+            "row_min": 812,
+            "column_max": 2617,
+            "row_max": 827,
+            "content": "X"
+        },
+        {
+            "id": 176,
+            "column_min": 2705,
+            "row_min": 809,
+            "column_max": 2825,
+            "row_max": 834,
+            "content": "ee)"
+        },
+        {
+            "id": 178,
+            "column_min": 60,
+            "row_min": 856,
+            "column_max": 77,
+            "row_max": 859,
+            "content": "\u2014"
+        },
+        {
+            "id": 180,
+            "column_min": 2387,
+            "row_min": 852,
+            "column_max": 2408,
+            "row_max": 875,
+            "content": "\u00a9"
+        },
+        {
+            "id": 181,
+            "column_min": 2608,
+            "row_min": 845,
+            "column_max": 2617,
+            "row_max": 859,
+            "content": "y"
+        },
+        {
+            "id": 182,
+            "column_min": 2705,
+            "row_min": 840,
+            "column_max": 2724,
+            "row_max": 858,
+            "content": "or"
+        },
+        {
+            "id": 183,
+            "column_min": 2804,
+            "row_min": 842,
+            "column_max": 2825,
+            "row_max": 860,
+            "content": "ao)"
+        },
+        {
+            "id": 185,
+            "column_min": 1905,
+            "row_min": 881,
+            "column_max": 1909,
+            "row_max": 883,
+            "content": "="
+        },
+        {
+            "id": 186,
+            "column_min": 2602,
+            "row_min": 870,
+            "column_max": 2617,
+            "row_max": 898,
+            "content": "r4"
+        },
+        {
+            "id": 187,
+            "column_min": 2705,
+            "row_min": 875,
+            "column_max": 2724,
+            "row_max": 890,
+            "content": "OE"
+        },
+        {
+            "id": 188,
+            "column_min": 2796,
+            "row_min": 875,
+            "column_max": 2825,
+            "row_max": 896,
+            "content": "it"
+        },
+        {
+            "id": 190,
+            "column_min": 2032,
+            "row_min": 907,
+            "column_max": 2042,
+            "row_max": 910,
+            "content": "="
+        },
+        {
+            "id": 191,
+            "column_min": 2102,
+            "row_min": 922,
+            "column_max": 2110,
+            "row_max": 924,
+            "content": "="
+        },
+        {
+            "id": 192,
+            "column_min": 2387,
+            "row_min": 910,
+            "column_max": 2408,
+            "row_max": 933,
+            "content": "="
+        },
+        {
+            "id": 193,
+            "column_min": 2577,
+            "row_min": 917,
+            "column_max": 2617,
+            "row_max": 931,
+            "content": "Mode"
+        },
+        {
+            "id": 194,
+            "column_min": 2637,
+            "row_min": 904,
+            "column_max": 2669,
+            "row_max": 941,
+            "content": "XYZ"
+        },
+        {
+            "id": 195,
+            "column_min": 2678,
+            "row_min": 917,
+            "column_max": 2715,
+            "row_max": 931,
+            "content": "Euler"
+        },
+        {
+            "id": 196,
+            "column_min": 2785,
+            "row_min": 922,
+            "column_max": 2796,
+            "row_max": 929,
+            "content": "v"
+        },
+        {
+            "id": 198,
+            "column_min": 2225,
+            "row_min": 947,
+            "column_max": 2278,
+            "row_max": 959,
+            "content": "To"
+        },
+        {
+            "id": 199,
+            "column_min": 2387,
+            "row_min": 954,
+            "column_max": 2408,
+            "row_max": 978,
+            "content": "4"
+        },
+        {
+            "id": 200,
+            "column_min": 2558,
+            "row_min": 944,
+            "column_max": 2602,
+            "row_max": 982,
+            "content": "Scale"
+        },
+        {
+            "id": 201,
+            "column_min": 2611,
+            "row_min": 957,
+            "column_max": 2617,
+            "row_max": 971,
+            "content": "X"
+        },
+        {
+            "id": 202,
+            "column_min": 2692,
+            "row_min": 953,
+            "column_max": 2777,
+            "row_max": 972,
+            "content": "1000"
+        },
+        {
+            "id": 203,
+            "column_min": 2804,
+            "row_min": 955,
+            "column_max": 2825,
+            "row_max": 973,
+            "content": "%G"
+        },
+        {
+            "id": 205,
+            "column_min": 2387,
+            "row_min": 1000,
+            "column_max": 2407,
+            "row_max": 1008,
+            "content": "ee"
+        },
+        {
+            "id": 207,
+            "column_min": 2692,
+            "row_min": 982,
+            "column_max": 2741,
+            "row_max": 1014,
+            "content": "1.000"
+        },
+        {
+            "id": 208,
+            "column_min": 2804,
+            "row_min": 987,
+            "column_max": 2825,
+            "row_max": 1005,
+            "content": "2)"
+        },
+        {
+            "id": 210,
+            "column_min": 2389,
+            "row_min": 1008,
+            "column_max": 2408,
+            "row_max": 1022,
+            "content": "a"
+        },
+        {
+            "id": 211,
+            "column_min": 2606,
+            "row_min": 1022,
+            "column_max": 2617,
+            "row_max": 1036,
+            "content": "z"
+        },
+        {
+            "id": 212,
+            "column_min": 2692,
+            "row_min": 1019,
+            "column_max": 2825,
+            "row_max": 1042,
+            "content": "1.000%"
+        },
+        {
+            "id": 214,
+            "column_min": 2451,
+            "row_min": 1072,
+            "column_max": 2460,
+            "row_max": 1082,
+            "content": "\u00bb"
+        },
+        {
+            "id": 215,
+            "column_min": 2468,
+            "row_min": 1063,
+            "column_max": 2511,
+            "row_max": 1095,
+            "content": "Delta"
+        },
+        {
+            "id": 216,
+            "column_min": 2519,
+            "row_min": 1063,
+            "column_max": 2590,
+            "row_max": 1095,
+            "content": "Transform"
+        },
+        {
+            "id": 218,
+            "column_min": 2430,
+            "row_min": 1110,
+            "column_max": 2440,
+            "row_max": 1121,
+            "content": "\u00bb"
+        },
+        {
+            "id": 219,
+            "column_min": 2451,
+            "row_min": 1109,
+            "column_max": 2528,
+            "row_max": 1124,
+            "content": "Relations"
+        },
+        {
+            "id": 221,
+            "column_min": 2430,
+            "row_min": 1149,
+            "column_max": 2439,
+            "row_max": 1159,
+            "content": "\u00bb"
+        },
+        {
+            "id": 222,
+            "column_min": 2451,
+            "row_min": 1147,
+            "column_max": 2542,
+            "row_max": 1163,
+            "content": "Collections"
+        },
+        {
+            "id": 224,
+            "column_min": 2430,
+            "row_min": 1187,
+            "column_max": 2439,
+            "row_max": 1198,
+            "content": "\u00bb"
+        },
+        {
+            "id": 225,
+            "column_min": 2451,
+            "row_min": 1186,
+            "column_max": 2535,
+            "row_max": 1205,
+            "content": "Instancing"
+        },
+        {
+            "id": 227,
+            "column_min": 2430,
+            "row_min": 1226,
+            "column_max": 2439,
+            "row_max": 1236,
+            "content": "\u00bb"
+        },
+        {
+            "id": 228,
+            "column_min": 2451,
+            "row_min": 1224,
+            "column_max": 2507,
+            "row_max": 1240,
+            "content": "Motion"
+        },
+        {
+            "id": 229,
+            "column_min": 2513,
+            "row_min": 1224,
+            "column_max": 2558,
+            "row_max": 1240,
+            "content": "Paths"
+        },
+        {
+            "id": 231,
+            "column_min": 2430,
+            "row_min": 1265,
+            "column_max": 2439,
+            "row_max": 1275,
+            "content": "\u00bb"
+        },
+        {
+            "id": 232,
+            "column_min": 2450,
+            "row_min": 1262,
+            "column_max": 2520,
+            "row_max": 1283,
+            "content": "Visibility"
+        },
+        {
+            "id": 234,
+            "column_min": 2430,
+            "row_min": 1303,
+            "column_max": 2439,
+            "row_max": 1313,
+            "content": "\u00bb"
+        },
+        {
+            "id": 235,
+            "column_min": 2450,
+            "row_min": 1297,
+            "column_max": 2522,
+            "row_max": 1325,
+            "content": "Viewport"
+        },
+        {
+            "id": 236,
+            "column_min": 2529,
+            "row_min": 1297,
+            "column_max": 2591,
+            "row_max": 1325,
+            "content": "Display"
+        },
+        {
+            "id": 238,
+            "column_min": 2430,
+            "row_min": 1341,
+            "column_max": 2439,
+            "row_max": 1352,
+            "content": "\u00bb"
+        },
+        {
+            "id": 239,
+            "column_min": 2451,
+            "row_min": 1333,
+            "column_max": 2509,
+            "row_max": 1365,
+            "content": "Custom"
+        },
+        {
+            "id": 240,
+            "column_min": 2520,
+            "row_min": 1333,
+            "column_max": 2608,
+            "row_max": 1365,
+            "content": "Properties"
+        },
+        {
+            "id": 242,
+            "column_min": 11,
+            "row_min": 1494,
+            "column_max": 47,
+            "row_max": 1517,
+            "content": "@y"
+        },
+        {
+            "id": 243,
+            "column_min": 73,
+            "row_min": 1498,
+            "column_max": 139,
+            "row_max": 1516,
+            "content": "Playback"
+        },
+        {
+            "id": 244,
+            "column_min": 149,
+            "row_min": 1502,
+            "column_max": 160,
+            "row_max": 1510,
+            "content": "v"
+        },
+        {
+            "id": 245,
+            "column_min": 176,
+            "row_min": 1498,
+            "column_max": 226,
+            "row_max": 1516,
+            "content": "Keying"
+        },
+        {
+            "id": 246,
+            "column_min": 238,
+            "row_min": 1503,
+            "column_max": 248,
+            "row_max": 1510,
+            "content": "\u00a5"
+        },
+        {
+            "id": 247,
+            "column_min": 263,
+            "row_min": 1498,
+            "column_max": 300,
+            "row_max": 1513,
+            "content": "View"
+        },
+        {
+            "id": 248,
+            "column_min": 325,
+            "row_min": 1498,
+            "column_max": 377,
+            "row_max": 1513,
+            "content": "Marker"
+        },
+        {
+            "id": 249,
+            "column_min": 1064,
+            "row_min": 1492,
+            "column_max": 1083,
+            "row_max": 1515,
+            "content": "e"
+        },
+        {
+            "id": 250,
+            "column_min": 1101,
+            "row_min": 1492,
+            "column_max": 1176,
+            "row_max": 1517,
+            "content": "Odd"
+        },
+        {
+            "id": 251,
+            "column_min": 1195,
+            "row_min": 1492,
+            "column_max": 1242,
+            "row_max": 1517,
+            "content": "De"
+        },
+        {
+            "id": 252,
+            "column_min": 1986,
+            "row_min": 1498,
+            "column_max": 1997,
+            "row_max": 1513,
+            "content": "1"
+        },
+        {
+            "id": 253,
+            "column_min": 2060,
+            "row_min": 1493,
+            "column_max": 2082,
+            "row_max": 1518,
+            "content": "6"
+        },
+        {
+            "id": 254,
+            "column_min": 2104,
+            "row_min": 1493,
+            "column_max": 2155,
+            "row_max": 1527,
+            "content": "Start"
+        },
+        {
+            "id": 255,
+            "column_min": 2177,
+            "row_min": 1498,
+            "column_max": 2215,
+            "row_max": 1519,
+            "content": "1"
+        },
+        {
+            "id": 257,
+            "column_min": 2292,
+            "row_min": 1489,
+            "column_max": 2317,
+            "row_max": 1528,
+            "content": "250"
+        },
+        {
+            "id": 259,
+            "column_min": 56,
+            "row_min": 1524,
+            "column_max": 100,
+            "row_max": 1563,
+            "content": "BS"
+        },
+        {
+            "id": 260,
+            "column_min": 150,
+            "row_min": 1538,
+            "column_max": 168,
+            "row_max": 1551,
+            "content": "10"
+        },
+        {
+            "id": 261,
+            "column_min": 238,
+            "row_min": 1538,
+            "column_max": 256,
+            "row_max": 1551,
+            "content": "20"
+        },
+        {
+            "id": 262,
+            "column_min": 327,
+            "row_min": 1538,
+            "column_max": 345,
+            "row_max": 1551,
+            "content": "30"
+        },
+        {
+            "id": 263,
+            "column_min": 414,
+            "row_min": 1538,
+            "column_max": 433,
+            "row_max": 1551,
+            "content": "40"
+        },
+        {
+            "id": 264,
+            "column_min": 503,
+            "row_min": 1538,
+            "column_max": 522,
+            "row_max": 1551,
+            "content": "50"
+        },
+        {
+            "id": 265,
+            "column_min": 592,
+            "row_min": 1538,
+            "column_max": 610,
+            "row_max": 1551,
+            "content": "60"
+        },
+        {
+            "id": 266,
+            "column_min": 680,
+            "row_min": 1538,
+            "column_max": 699,
+            "row_max": 1551,
+            "content": "i)"
+        },
+        {
+            "id": 267,
+            "column_min": 769,
+            "row_min": 1538,
+            "column_max": 787,
+            "row_max": 1551,
+            "content": "80"
+        },
+        {
+            "id": 268,
+            "column_min": 857,
+            "row_min": 1538,
+            "column_max": 876,
+            "row_max": 1551,
+            "content": "90"
+        },
+        {
+            "id": 269,
+            "column_min": 940,
+            "row_min": 1537,
+            "column_max": 969,
+            "row_max": 1551,
+            "content": "100"
+        },
+        {
+            "id": 270,
+            "column_min": 1029,
+            "row_min": 1538,
+            "column_max": 1057,
+            "row_max": 1551,
+            "content": "110"
+        },
+        {
+            "id": 271,
+            "column_min": 1118,
+            "row_min": 1538,
+            "column_max": 1146,
+            "row_max": 1551,
+            "content": "120"
+        },
+        {
+            "id": 272,
+            "column_min": 1206,
+            "row_min": 1537,
+            "column_max": 1234,
+            "row_max": 1551,
+            "content": "130"
+        },
+        {
+            "id": 273,
+            "column_min": 1295,
+            "row_min": 1538,
+            "column_max": 1323,
+            "row_max": 1551,
+            "content": "140"
+        },
+        {
+            "id": 274,
+            "column_min": 1383,
+            "row_min": 1538,
+            "column_max": 1411,
+            "row_max": 1551,
+            "content": "150"
+        },
+        {
+            "id": 275,
+            "column_min": 1472,
+            "row_min": 1538,
+            "column_max": 1501,
+            "row_max": 1551,
+            "content": "160"
+        },
+        {
+            "id": 276,
+            "column_min": 1561,
+            "row_min": 1537,
+            "column_max": 1589,
+            "row_max": 1551,
+            "content": "170"
+        },
+        {
+            "id": 277,
+            "column_min": 1649,
+            "row_min": 1538,
+            "column_max": 1678,
+            "row_max": 1551,
+            "content": "180"
+        },
+        {
+            "id": 278,
+            "column_min": 1738,
+            "row_min": 1537,
+            "column_max": 1766,
+            "row_max": 1551,
+            "content": "190"
+        },
+        {
+            "id": 279,
+            "column_min": 1824,
+            "row_min": 1538,
+            "column_max": 1853,
+            "row_max": 1551,
+            "content": "200"
+        },
+        {
+            "id": 280,
+            "column_min": 1913,
+            "row_min": 1538,
+            "column_max": 1942,
+            "row_max": 1551,
+            "content": "210"
+        },
+        {
+            "id": 281,
+            "column_min": 2001,
+            "row_min": 1538,
+            "column_max": 2030,
+            "row_max": 1551,
+            "content": "220"
+        },
+        {
+            "id": 282,
+            "column_min": 2090,
+            "row_min": 1537,
+            "column_max": 2119,
+            "row_max": 1551,
+            "content": "230"
+        },
+        {
+            "id": 283,
+            "column_min": 2178,
+            "row_min": 1537,
+            "column_max": 2207,
+            "row_max": 1551,
+            "content": "240"
+        },
+        {
+            "id": 284,
+            "column_min": 2267,
+            "row_min": 1538,
+            "column_max": 2296,
+            "row_max": 1551,
+            "content": "250"
+        },
+        {
+            "id": 285,
+            "column_min": 2362,
+            "row_min": 1554,
+            "column_max": 2369,
+            "row_max": 1565,
+            "content": "P"
+        },
+        {
+            "id": 287,
+            "column_min": 364,
+            "row_min": 1608,
+            "column_max": 424,
+            "row_max": 1625,
+            "content": "Pan"
+        },
+        {
+            "id": 288,
+            "column_min": 429,
+            "row_min": 1613,
+            "column_max": 465,
+            "row_max": 1625,
+            "content": "View"
+        },
+        {
+            "id": 289,
+            "column_min": 752,
+            "row_min": 1613,
+            "column_max": 809,
+            "row_max": 1625,
+            "content": "Context"
+        },
+        {
+            "id": 290,
+            "column_min": 815,
+            "row_min": 1613,
+            "column_max": 855,
+            "row_max": 1625,
+            "content": "Menu"
+        },
+        {
+            "id": 291,
+            "column_min": 2196,
+            "row_min": 1613,
+            "column_max": 2270,
+            "row_max": 1625,
+            "content": "Collection"
+        },
+        {
+            "id": 292,
+            "column_min": 2276,
+            "row_min": 1613,
+            "column_max": 2278,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 293,
+            "column_min": 2285,
+            "row_min": 1613,
+            "column_max": 2321,
+            "row_max": 1625,
+            "content": "Cube"
+        },
+        {
+            "id": 294,
+            "column_min": 2327,
+            "row_min": 1613,
+            "column_max": 2329,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 295,
+            "column_min": 2335,
+            "row_min": 1613,
+            "column_max": 2387,
+            "row_max": 1625,
+            "content": "Verts:8"
+        },
+        {
+            "id": 296,
+            "column_min": 2395,
+            "row_min": 1613,
+            "column_max": 2397,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 297,
+            "column_min": 2403,
+            "row_min": 1613,
+            "column_max": 2459,
+            "row_max": 1625,
+            "content": "Faces:6"
+        },
+        {
+            "id": 298,
+            "column_min": 2467,
+            "row_min": 1613,
+            "column_max": 2469,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 299,
+            "column_min": 2474,
+            "row_min": 1612,
+            "column_max": 2523,
+            "row_max": 1625,
+            "content": "Tris:12"
+        },
+        {
+            "id": 300,
+            "column_min": 2531,
+            "row_min": 1614,
+            "column_max": 2533,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 301,
+            "column_min": 2539,
+            "row_min": 1612,
+            "column_max": 2624,
+            "row_max": 1625,
+            "content": "Obiects:1"
+        },
+        {
+            "id": 302,
+            "column_min": 2632,
+            "row_min": 1613,
+            "column_max": 2633,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 303,
+            "column_min": 2640,
+            "row_min": 1613,
+            "column_max": 2680,
+            "row_max": 1625,
+            "content": "Mem:"
+        },
+        {
+            "id": 304,
+            "column_min": 2687,
+            "row_min": 1613,
+            "column_max": 2720,
+            "row_max": 1625,
+            "content": "24.7"
+        },
+        {
+            "id": 305,
+            "column_min": 2727,
+            "row_min": 1613,
+            "column_max": 2754,
+            "row_max": 1625,
+            "content": "MiB"
+        },
+        {
+            "id": 306,
+            "column_min": 2761,
+            "row_min": 1613,
+            "column_max": 2763,
+            "row_max": 1625,
+            "content": "|"
+        },
+        {
+            "id": 307,
+            "column_min": 2769,
+            "row_min": 1613,
+            "column_max": 2827,
+            "row_max": 1625,
+            "content": "v2.2.7"
         }
     ]
 }
