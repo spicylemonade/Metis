@@ -53,10 +53,24 @@ export default function DashboardPage() {
   // When the recording state changes and a stream is available, attach it to the video element.
   useEffect(() => {
     if (recording && screenStream && videoRef.current) {
+      // Pause before setting a new source
+      videoRef.current.pause();
       videoRef.current.srcObject = screenStream;
-      videoRef.current.play().catch((err) => console.error("Auto-play prevented:", err));
+  
+      // Optionally call load() to ensure the video element reloads its source.
+      videoRef.current.load();
+  
+      // Then attempt to play, catching any AbortError.
+      videoRef.current
+        .play()
+        .catch((err) => {
+          if (err.name !== "AbortError") {
+            console.error("Error playing video:", err);
+          }
+        });
     }
   }, [recording, screenStream]);
+  
 
   // Toggle function that uses the context functions.
   const handleRecordingToggle = () => {
