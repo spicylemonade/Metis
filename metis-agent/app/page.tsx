@@ -15,12 +15,16 @@ import {
 import { Bar } from "react-chartjs-2";
 import { useMindMapContext } from "@/components/MindMapContext";
 import { useRecordingContext } from "@/components/RecordingContext";
-import { MonitorOff, Monitor } from "lucide-react"; // Import both icons
+import { MonitorOff, Monitor } from "lucide-react";
 
 // Register Chart.js components.
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+// URL for the Flask backend.
+const FLASK_SERVER_URL = "http://localhost:5000";
+
 export default function DashboardPage() {
+  // Dummy activity data.
   const activityData = {
     labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
@@ -40,27 +44,36 @@ export default function DashboardPage() {
     },
   };
 
-  // State for the command input.
+  // Command input state.
   const [command, setCommand] = useState("");
   const { setHighlightQuery } = useMindMapContext();
 
-  // Use the shared recording context.
+  // Recording context.
   const { recording, screenStream, startScreenCapture, stopScreenCapture } = useRecordingContext();
 
-  // Local ref for handling the video element.
+  // Video element ref.
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // When the recording state changes and a stream is available, attach it to the video element.
+  // Global recording settings from localStorage.
+  const [baseFolder, setBaseFolder] = useState<string | null>(null);
+  const [encryptionPassword, setEncryptionPassword] = useState<string>("");
+
+  useEffect(() => {
+    const folder = localStorage.getItem("baseFolder");
+    const pass = localStorage.getItem("encryptionPassword");
+    if (folder) setBaseFolder(folder);
+    if (pass) setEncryptionPassword(pass);
+  }, []);
+
+  // Summary text state.
+  const [summaryText, setSummaryText] = useState<string>("");
+
+  // Attach the screen stream to the video element (if available).
   useEffect(() => {
     if (recording && screenStream && videoRef.current) {
-      // Pause before setting a new source
       videoRef.current.pause();
       videoRef.current.srcObject = screenStream;
-  
-      // Optionally call load() to ensure the video element reloads its source.
       videoRef.current.load();
-  
-      // Then attempt to play, catching any AbortError.
       videoRef.current
         .play()
         .catch((err) => {
@@ -70,49 +83,98 @@ export default function DashboardPage() {
         });
     }
   }, [recording, screenStream]);
-  
 
-  // Toggle function that uses the context functions.
-  const handleRecordingToggle = () => {
+  // When the recording button is pressed, simply send a start or stop recording request.
+  const handleRecordingToggle = async () => {
     if (recording) {
+      // Stop local capture.
       stopScreenCapture();
+      // When stopping, call the backend stopRecording API.
+      if (baseFolder && encryptionPassword) {
+        try {
+          const res = await fetch(
+            `${FLASK_SERVER_URL}/api/stopRecording?baseFolder=${encodeURIComponent(
+              baseFolder
+            )}&encryptionPassword=${encodeURIComponent(encryptionPassword)}`,
+            { method: "POST" }
+          );
+          if (!res.ok) {
+            const errorText = await res.text();
+            console.error("Error stopping recording:", errorText);
+          } else {
+            const data = await res.json();
+            console.log("Recording stopped and processed:", data);
+          }
+        } catch (err) {
+          console.error("Error stopping recording:", err);
+        }
+        // Then call the summarization endpoint.
+        try {
+          const res = await fetch(
+            `${FLASK_SERVER_URL}/api/summarizeRecording?baseFolder=${encodeURIComponent(baseFolder)}`
+          );
+          if (!res.ok) {
+            const errorText = await res.text();
+            console.error("Summarization error:", errorText);
+          } else {
+            const data = await res.json();
+            setSummaryText(data.summary);
+            console.log("Summary:", data.summary);
+          }
+        } catch (err) {
+          console.error("Error summarizing recording:", err);
+        }
+      }
     } else {
+      if (!baseFolder || !encryptionPassword) {
+        console.error("Global recording folder or encryption password not set in settings.");
+        return;
+      }
+      // Start local capture (if you wish to show the screen stream).
       startScreenCapture();
+      // Tell the backend to start recording.
+      try {
+        const res = await fetch(`${FLASK_SERVER_URL}/api/startRecording`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ baseFolder }),
+        });
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error("Error starting recording:", errorText);
+        } else {
+          const data = await res.json();
+          console.log("Recording started:", data);
+        }
+      } catch (err) {
+        console.error("Error starting recording:", err);
+      }
+      setSummaryText("");
     }
   };
 
   return (
     <div className="space-y-8 p-6 pb-24">
-      {/* Extra bottom padding so content isn't hidden behind the fixed command box */}
       <h2 className="text-2xl font-semibold">Dashboard</h2>
-
       {/* Top Grid: Activity Summary, Quick Actions, Notifications */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Activity Summary */}
         <Card className="p-4 flex flex-col">
           <h3 className="font-bold mb-2">Activity Summary</h3>
           <div className="flex-grow">
             <Bar data={activityData} options={activityOptions} />
           </div>
         </Card>
-
-        {/* Quick Actions */}
         <Card className="p-4 flex flex-col">
           <h3 className="font-bold mb-2">Quick Actions</h3>
           <div className="flex flex-col space-y-4">
-            {/* Screen Recording Section */}
             <div className="flex flex-col gap-4">
               <div className="w-full h-64 border border-input rounded-lg flex items-center justify-center">
                 {recording && screenStream ? (
                   <video ref={videoRef} className="w-full h-full object-cover rounded-lg" />
+                ) : recording ? (
+                  <Monitor className="w-16 h-16 text-accent" />
                 ) : (
-                  recording ? (
-                    // If recording is true but stream not attached yet, show the open monitor icon.
-                    <Monitor className="w-16 h-16 text-accent" />
-                  ) : (
-                    // Otherwise, show the closed monitor icon.
-                    <MonitorOff className="w-16 h-16 text-muted-foreground" />
-                  )
+                  <MonitorOff className="w-16 h-16 text-muted-foreground" />
                 )}
               </div>
               <Button
@@ -125,8 +187,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </Card>
-
-        {/* Recent Notifications */}
         <Card className="p-4 flex flex-col">
           <h3 className="font-bold mb-2">Recent Notifications</h3>
           <ul className="list-disc ml-5 flex-grow">
@@ -139,10 +199,8 @@ export default function DashboardPage() {
           </Button>
         </Card>
       </div>
-
-      {/* Secondary Grid: Recent Activity Log & Active Automations */}
+      {/* Secondary Grid: Activity Log & Automations */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Recent Activity Log */}
         <Card className="p-4">
           <h3 className="font-bold mb-2">Recent Activity Log</h3>
           <div className="space-y-3">
@@ -162,25 +220,19 @@ export default function DashboardPage() {
             View Full Log
           </Button>
         </Card>
-
-        {/* Active Automations */}
         <Card className="p-4">
           <h3 className="font-bold mb-2">Active Automations</h3>
           <ul className="list-disc ml-5">
             <li>
               <div className="flex justify-between items-center">
                 <span>ClickBtnAutomation</span>
-                <Button size="sm" variant="destructive">
-                  Stop
-                </Button>
+                <Button size="sm" variant="destructive">Stop</Button>
               </div>
             </li>
             <li>
               <div className="flex justify-between items-center">
                 <span>FillInputAutomation</span>
-                <Button size="sm" variant="secondary">
-                  Edit
-                </Button>
+                <Button size="sm" variant="secondary">Edit</Button>
               </div>
             </li>
           </ul>
@@ -189,8 +241,14 @@ export default function DashboardPage() {
           </Button>
         </Card>
       </div>
-
-      {/* Fixed Command Box at the Bottom */}
+      {/* Summary Display */}
+      {summaryText && (
+        <Card className="p-4 mt-8">
+          <h3 className="font-bold mb-2">Recording Summary</h3>
+          <p>{summaryText}</p>
+        </Card>
+      )}
+      {/* Fixed Command Box */}
       <div className="fixed bottom-0 left-64 right-0 p-4 bg-background">
         <div className="relative">
           <input
@@ -221,9 +279,7 @@ export default function DashboardPage() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className={`lucide lucide-cheese ${
-                command.trim() !== "" ? "text-accent" : "text-muted-foreground"
-              }`}
+              className={`lucide lucide-cheese ${command.trim() !== "" ? "text-accent" : "text-muted-foreground"}`}
             >
               <path d="M21 19v-7c-1-6-7-9-7-9l-2.1 1.5a2 2 0 0 1-3 2.2L3 11v9c0 .6.4 1 1 1h3a2 2 0 0 1 4 0h8" />
               <path d="M9 12H3" />

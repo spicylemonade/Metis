@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 # =============================
 
 # OCR Engine Toggle: True = EasyOCR (with GPU support), False = Tesseract (default)
-USE_EASYOCR = True
+USE_EASYOCR = False
 
 # Toggle for any image display windows (e.g., cv2.imshow or plt.show)
 SHOW_IMAGE_WINDOWS = False
@@ -30,7 +30,7 @@ else:
     import pytesseract
     from pytesseract import Output
     # If Tesseract is not in your PATH, uncomment and adjust the following:
-    # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    #pytesseract.pytesseract.tesseract_cmd = "C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # =============================
 # Helper Functions

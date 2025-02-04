@@ -6,628 +6,1108 @@
     ],
     "texts": [
         {
-            "id": 0,
-            "column_min": 37,
-            "row_min": 7,
-            "column_max": 83,
-            "row_max": 25,
-            "content": "+65.6"
-        },
-        {
-            "id": 1,
-            "column_min": 111,
-            "row_min": 5,
-            "column_max": 163,
-            "row_max": 25,
-            "content": "+41.4"
-        },
-        {
-            "id": 2,
-            "column_min": 194,
-            "row_min": 3,
-            "column_max": 279,
-            "row_max": 24,
-            "content": "677.6+62.8"
-        },
-        {
-            "id": 3,
-            "column_min": 309,
-            "row_min": 5,
-            "column_max": 379,
-            "row_max": 23,
-            "content": "686 +79.4"
-        },
-        {
-            "id": 4,
-            "column_min": 1713,
-            "row_min": 1,
-            "column_max": 1795,
-            "row_max": 17,
-            "content": "TURN 118/330"
-        },
-        {
-            "id": 5,
-            "column_min": 1807,
-            "row_min": 9,
-            "column_max": 1855,
-            "row_max": 23,
-            "content": "2.34 PM"
-        },
-        {
-            "id": 6,
-            "column_min": 1715,
-            "row_min": 15,
-            "column_max": 1763,
-            "row_max": 27,
-            "content": "1140AD"
-        },
-        {
-            "id": 7,
-            "column_min": 94,
-            "row_min": 28,
-            "column_max": 210,
-            "row_max": 52,
-            "content": "CITY DETAILS"
-        },
-        {
-            "id": 8,
-            "column_min": 101,
-            "row_min": 61,
-            "column_max": 199,
-            "row_max": 79,
-            "content": "BALTIMORE"
-        },
-        {
-            "id": 9,
-            "column_min": 93,
-            "row_min": 141,
-            "column_max": 215,
-            "row_max": 161,
-            "content": "Citizen Growth"
-        },
-        {
-            "id": 10,
-            "column_min": 65,
-            "row_min": 177,
-            "column_max": 137,
-            "row_max": 197,
-            "content": "CTIzENS"
-        },
-        {
-            "id": 11,
-            "column_min": 75,
-            "row_min": 197,
-            "column_max": 137,
-            "row_max": 211,
-            "content": "turns until"
-        },
-        {
-            "id": 12,
-            "column_min": 143,
-            "row_min": 199,
-            "column_max": 223,
-            "row_max": 211,
-            "content": "new citizen is"
-        },
-        {
-            "id": 13,
-            "column_min": 65,
-            "row_min": 211,
-            "column_max": 97,
-            "row_max": 225,
-            "content": "born"
-        },
-        {
-            "id": 14,
-            "column_min": 5,
-            "row_min": 239,
-            "column_max": 83,
-            "row_max": 255,
-            "content": "Food per turn"
-        },
-        {
-            "id": 15,
-            "column_min": 273,
-            "row_min": 239,
-            "column_max": 295,
-            "row_max": 253,
-            "content": "+30"
-        },
-        {
-            "id": 16,
-            "column_min": 5,
-            "row_min": 259,
-            "column_max": 113,
-            "row_max": 273,
-            "content": "Food consumption"
-        },
-        {
-            "id": 17,
-            "column_min": 5,
-            "row_min": 277,
-            "column_max": 191,
-            "row_max": 295,
-            "content": "Food needed to grow population"
-        },
-        {
-            "id": 18,
-            "column_min": 7,
-            "row_min": 311,
-            "column_max": 125,
-            "row_max": 325,
-            "content": "Growth food per turn"
-        },
-        {
-            "id": 19,
-            "column_min": 273,
-            "row_min": 311,
-            "column_max": 295,
-            "row_max": 325,
-            "content": "+12"
-        },
-        {
-            "id": 20,
-            "column_min": 5,
-            "row_min": 330,
-            "column_max": 145,
-            "row_max": 347,
-            "content": "Amenities growth bonus"
-        },
-        {
-            "id": 21,
-            "column_min": 7,
-            "row_min": 350,
-            "column_max": 133,
-            "row_max": 367,
-            "content": "Other growth bonuses"
-        },
-        {
-            "id": 22,
-            "column_min": 5,
-            "row_min": 383,
-            "column_max": 135,
-            "row_max": 397,
-            "content": "Modified food per turn"
-        },
-        {
-            "id": 23,
-            "column_min": 273,
-            "row_min": 383,
-            "column_max": 295,
-            "row_max": 397,
-            "content": "+12"
-        },
-        {
-            "id": 24,
-            "column_min": 4,
-            "row_min": 401,
-            "column_max": 113,
-            "row_max": 419,
-            "content": "Housing multiplier"
-        },
-        {
-            "id": 25,
-            "column_min": 269,
-            "row_min": 403,
-            "column_max": 295,
-            "row_max": 417,
-            "content": "0.25"
-        },
-        {
-            "id": 26,
-            "column_min": 7,
-            "row_min": 423,
-            "column_max": 141,
-            "row_max": 437,
-            "content": "Occupied city multiplier"
-        },
-        {
-            "id": 27,
-            "column_min": 271,
-            "row_min": 423,
-            "column_max": 295,
-            "row_max": 437,
-            "content": "NIA"
-        },
-        {
-            "id": 28,
-            "column_min": 5,
-            "row_min": 454,
-            "column_max": 113,
-            "row_max": 472,
-            "content": "Total Food Surplus"
-        },
-        {
-            "id": 29,
-            "column_min": 245,
-            "row_min": 453,
-            "column_max": 273,
-            "row_max": 473,
-            "content": "+3"
-        },
-        {
-            "id": 30,
-            "column_min": 893,
-            "row_min": 457,
-            "column_max": 991,
-            "row_max": 477,
-            "content": "BALTIMORE"
-        },
-        {
-            "id": 31,
-            "column_min": 31,
-            "row_min": 489,
-            "column_max": 127,
-            "row_max": 507,
-            "content": "GROWTHIN 3"
-        },
-        {
-            "id": 32,
-            "column_min": 115,
-            "row_min": 519,
-            "column_max": 197,
-            "row_max": 537,
-            "content": "Amenities"
-        },
-        {
-            "id": 33,
-            "column_min": 37,
-            "row_min": 553,
-            "column_max": 97,
-            "row_max": 567,
-            "content": "Amenities"
-        },
-        {
-            "id": 34,
-            "column_min": 145,
-            "row_min": 559,
-            "column_max": 195,
-            "row_max": 573,
-            "content": "Status:"
-        },
-        {
-            "id": 35,
-            "column_min": 145,
-            "row_min": 575,
-            "column_max": 203,
-            "row_max": 589,
-            "content": "Content"
-        },
-        {
-            "id": 36,
-            "column_min": 35,
-            "row_min": 583,
-            "column_max": 89,
-            "row_max": 597,
-            "content": "Required"
-        },
-        {
-            "id": 37,
-            "column_min": 53,
-            "row_min": 615,
-            "column_max": 169,
-            "row_max": 629,
-            "content": "Citizens are satisfied"
-        },
-        {
-            "id": 38,
-            "column_min": 189,
-            "row_min": 617,
-            "column_max": 251,
-            "row_max": 631,
-            "content": "positive or"
-        },
-        {
-            "id": 39,
-            "column_min": 52,
-            "row_min": 631,
-            "column_max": 147,
-            "row_max": 650,
-            "content": "negative effects"
-        },
-        {
             "id": 40,
-            "column_min": 9,
-            "row_min": 671,
-            "column_max": 193,
-            "row_max": 685,
-            "content": "Amenities from Luxury resources:"
+            "column_min": 1715,
+            "row_min": 4,
+            "column_max": 1745,
+            "row_max": 12,
+            "content": "TURN"
         },
         {
             "id": 41,
-            "column_min": 9,
-            "row_min": 697,
-            "column_max": 133,
-            "row_max": 711,
-            "content": "Amenities from Civics:"
-        },
-        {
-            "id": 42,
-            "column_min": 9,
-            "row_min": 722,
-            "column_max": 182,
-            "row_max": 737,
-            "content": "Amenities from Entertainment:"
+            "column_min": 1750,
+            "row_min": 4,
+            "column_max": 1792,
+            "row_max": 13,
+            "content": "118/330"
         },
         {
             "id": 43,
-            "column_min": 9,
-            "row_min": 749,
-            "column_max": 173,
-            "row_max": 763,
-            "content": "Amenities from Great People:"
+            "column_min": 1716,
+            "row_min": 16,
+            "column_max": 1760,
+            "row_max": 24,
+            "content": "11400"
         },
         {
             "id": 44,
-            "column_min": 9,
-            "row_min": 775,
-            "column_max": 161,
-            "row_max": 789,
-            "content": "Amenities from City-States:"
+            "column_min": 1809,
+            "row_min": 10,
+            "column_max": 1850,
+            "row_max": 18,
+            "content": "2aaem"
         },
         {
             "id": 45,
-            "column_min": 9,
-            "row_min": 801,
-            "column_max": 149,
-            "row_max": 815,
-            "content": "Amenities from Religion:"
-        },
-        {
-            "id": 46,
-            "column_min": 9,
-            "row_min": 827,
-            "column_max": 181,
-            "row_max": 841,
-            "content": "Amenities from National Parks:"
-        },
-        {
-            "id": 47,
-            "column_min": 9,
-            "row_min": 853,
-            "column_max": 181,
-            "row_max": 867,
-            "content": "Amenities from War Weariness:"
-        },
-        {
-            "id": 48,
-            "column_min": 9,
-            "row_min": 879,
-            "column_max": 165,
-            "row_max": 893,
-            "content": "Amenities from Bankruptcy:"
-        },
-        {
-            "id": 49,
-            "column_min": 1775,
-            "row_min": 877,
-            "column_max": 1899,
-            "row_max": 893,
-            "content": "CHOOSE RESEARCH"
-        },
-        {
-            "id": 50,
-            "column_min": 9,
-            "row_min": 907,
-            "column_max": 99,
-            "row_max": 921,
-            "content": "Total Amenities"
-        },
-        {
-            "id": 51,
-            "column_min": 1319,
-            "row_min": 905,
-            "column_max": 1347,
-            "row_max": 919,
-            "content": "+4,6"
-        },
-        {
-            "id": 52,
-            "column_min": 1399,
-            "row_min": 905,
-            "column_max": 1423,
-            "row_max": 919,
-            "content": "+30"
+            "column_min": 1868,
+            "row_min": 5,
+            "column_max": 1879,
+            "row_max": 23,
+            "content": "2"
         },
         {
             "id": 53,
-            "column_min": 1473,
-            "row_min": 905,
-            "column_max": 1499,
-            "row_max": 919,
-            "content": "+16"
+            "column_min": 11,
+            "row_min": 4,
+            "column_max": 32,
+            "row_max": 27,
+            "content": "(6"
         },
         {
             "id": 54,
-            "column_min": 1549,
-            "row_min": 905,
-            "column_max": 1577,
-            "row_max": 919,
-            "content": "47.2"
+            "column_min": 37,
+            "row_min": 6,
+            "column_max": 86,
+            "row_max": 23,
+            "content": "+65.6)"
         },
         {
             "id": 55,
-            "column_min": 1627,
-            "row_min": 905,
-            "column_max": 1651,
-            "row_max": 919,
-            "content": "+29"
+            "column_min": 90,
+            "row_min": 6,
+            "column_max": 110,
+            "row_max": 25,
+            "content": "|\u00bb"
         },
         {
             "id": 56,
-            "column_min": 1703,
-            "row_min": 905,
-            "column_max": 1729,
-            "row_max": 919,
-            "content": "+40"
+            "column_min": 116,
+            "row_min": 8,
+            "column_max": 166,
+            "row_max": 23,
+            "content": "+41.4)"
         },
         {
             "id": 57,
-            "column_min": 1439,
-            "row_min": 925,
-            "column_max": 1537,
-            "row_max": 945,
-            "content": "BALTIMORE"
+            "column_min": 170,
+            "row_min": 4,
+            "column_max": 192,
+            "row_max": 25,
+            "content": "(we"
         },
         {
             "id": 58,
-            "column_min": 17,
-            "row_min": 939,
-            "column_max": 131,
-            "row_max": 953,
-            "content": "TO GAIN AMENITIES:"
-        },
-        {
-            "id": 59,
-            "column_min": 1435,
-            "row_min": 955,
-            "column_max": 1499,
-            "row_max": 969,
-            "content": "BUILDINGS"
-        },
-        {
-            "id": 60,
-            "column_min": 1509,
-            "row_min": 951,
-            "column_max": 1577,
-            "row_max": 971,
-            "content": "Shipyard"
-        },
-        {
-            "id": 61,
-            "column_min": 17,
-            "row_min": 965,
-            "column_max": 187,
-            "row_max": 979,
-            "content": "Construct Buildings: Alhambra"
+            "column_min": 196,
+            "row_min": 6,
+            "column_max": 281,
+            "row_max": 23,
+            "content": "677.6628)"
         },
         {
             "id": 62,
-            "column_min": 1511,
-            "row_min": 973,
-            "column_max": 1589,
-            "row_max": 987,
-            "content": "42590 combat"
+            "column_min": 312,
+            "row_min": 7,
+            "column_max": 375,
+            "row_max": 32,
+            "content": "686*794)"
         },
         {
             "id": 63,
-            "column_min": 1385,
-            "row_min": 981,
-            "column_max": 1499,
-            "row_max": 995,
-            "content": "RELIGIOUS CITIZENS"
-        },
-        {
-            "id": 64,
-            "column_min": 1509,
-            "row_min": 985,
-            "column_max": 1609,
-            "row_max": 1001,
-            "content": "experience for all"
-        },
-        {
-            "id": 65,
-            "column_min": 17,
-            "row_min": 991,
-            "column_max": 177,
-            "row_max": 1005,
-            "content": "Add Districts: Entertainment"
-        },
-        {
-            "id": 66,
-            "column_min": 1509,
-            "row_min": 999,
-            "column_max": 1609,
-            "row_max": 1013,
-            "content": "naval units traine"
-        },
-        {
-            "id": 67,
-            "column_min": 17,
-            "row_min": 1005,
-            "column_max": 69,
-            "row_max": 1019,
-            "content": "Complex"
-        },
-        {
-            "id": 68,
-            "column_min": 1435,
-            "row_min": 1007,
-            "column_max": 1499,
-            "row_max": 1021,
-            "content": "AMENITIES"
-        },
-        {
-            "id": 69,
-            "column_min": 1509,
-            "row_min": 1013,
-            "column_max": 1595,
-            "row_max": 1027,
-            "content": "this city: Bonus"
-        },
-        {
-            "id": 70,
-            "column_min": 17,
-            "row_min": 1031,
-            "column_max": 163,
-            "row_max": 1045,
-            "content": "Improve Luxury resources,"
-        },
-        {
-            "id": 71,
-            "column_min": 1443,
-            "row_min": 1029,
-            "column_max": 1499,
-            "row_max": 1043,
-            "content": "HOUSING"
+            "column_min": 411,
+            "row_min": 9,
+            "column_max": 427,
+            "row_max": 21,
+            "content": "61"
         },
         {
             "id": 72,
-            "column_min": 1509,
-            "row_min": 1025,
-            "column_max": 1623,
-            "row_max": 1039,
-            "content": "Production equal to"
-        },
-        {
-            "id": 73,
-            "column_min": 1538,
-            "row_min": 1040,
-            "column_max": 1618,
-            "row_max": 1048,
-            "content": "duacencv Joni"
-        },
-        {
-            "id": 74,
-            "column_min": 121,
-            "row_min": 1061,
-            "column_max": 191,
-            "row_max": 1079,
-            "content": "Housinq"
-        },
-        {
-            "id": 75,
-            "column_min": 1335,
-            "row_min": 1057,
-            "column_max": 1465,
-            "row_max": 1071,
-            "content": "TURNS UNTIL GROWTH"
+            "column_min": 104,
+            "row_min": 52,
+            "column_max": 108,
+            "row_max": 53,
+            "content": "="
         },
         {
             "id": 76,
-            "column_min": 1513,
-            "row_min": 1053,
-            "column_max": 1537,
-            "row_max": 1073,
-            "content": "13"
+            "column_min": 14,
+            "row_min": 63,
+            "column_max": 21,
+            "row_max": 72,
+            "content": ";"
         },
         {
             "id": 77,
-            "column_min": 1541,
-            "row_min": 1057,
-            "column_max": 1679,
-            "row_max": 1071,
-            "content": "TURNS UNTIL COMPLET"
+            "column_min": 106,
+            "row_min": 56,
+            "column_max": 197,
+            "row_max": 86,
+            "content": "BALTIMORE"
+        },
+        {
+            "id": 82,
+            "column_min": 86,
+            "row_min": 86,
+            "column_max": 298,
+            "row_max": 109,
+            "content": "a"
+        },
+        {
+            "id": 88,
+            "column_min": 20,
+            "row_min": 175,
+            "column_max": 49,
+            "row_max": 218,
+            "content": "\u201c3"
+        },
+        {
+            "id": 89,
+            "column_min": 68,
+            "row_min": 175,
+            "column_max": 134,
+            "row_max": 204,
+            "content": "Crrizens"
+        },
+        {
+            "id": 93,
+            "column_min": 68,
+            "row_min": 200,
+            "column_max": 73,
+            "row_max": 208,
+            "content": "3"
+        },
+        {
+            "id": 94,
+            "column_min": 76,
+            "row_min": 200,
+            "column_max": 104,
+            "row_max": 208,
+            "content": "turns"
+        },
+        {
+            "id": 95,
+            "column_min": 110,
+            "row_min": 189,
+            "column_max": 133,
+            "row_max": 217,
+            "content": "until"
+        },
+        {
+            "id": 96,
+            "column_min": 137,
+            "row_min": 202,
+            "column_max": 142,
+            "row_max": 208,
+            "content": "a"
+        },
+        {
+            "id": 97,
+            "column_min": 146,
+            "row_min": 202,
+            "column_max": 168,
+            "row_max": 208,
+            "content": "new"
+        },
+        {
+            "id": 98,
+            "column_min": 171,
+            "row_min": 200,
+            "column_max": 207,
+            "row_max": 208,
+            "content": "citizen"
+        },
+        {
+            "id": 99,
+            "column_min": 211,
+            "row_min": 200,
+            "column_max": 219,
+            "row_max": 208,
+            "content": "is"
+        },
+        {
+            "id": 101,
+            "column_min": 68,
+            "row_min": 212,
+            "column_max": 93,
+            "row_max": 221,
+            "content": "born"
+        },
+        {
+            "id": 113,
+            "column_min": 8,
+            "row_min": 240,
+            "column_max": 34,
+            "row_max": 249,
+            "content": "Food"
+        },
+        {
+            "id": 114,
+            "column_min": 38,
+            "row_min": 243,
+            "column_max": 56,
+            "row_max": 252,
+            "content": "per"
+        },
+        {
+            "id": 115,
+            "column_min": 59,
+            "row_min": 241,
+            "column_max": 82,
+            "row_max": 249,
+            "content": "turn,"
+        },
+        {
+            "id": 117,
+            "column_min": 8,
+            "row_min": 260,
+            "column_max": 34,
+            "row_max": 269,
+            "content": "Food"
+        },
+        {
+            "id": 118,
+            "column_min": 38,
+            "row_min": 261,
+            "column_max": 110,
+            "row_max": 272,
+            "content": "consumption"
+        },
+        {
+            "id": 120,
+            "column_min": 8,
+            "row_min": 280,
+            "column_max": 34,
+            "row_max": 289,
+            "content": "Food"
+        },
+        {
+            "id": 121,
+            "column_min": 38,
+            "row_min": 280,
+            "column_max": 79,
+            "row_max": 289,
+            "content": "needed"
+        },
+        {
+            "id": 122,
+            "column_min": 82,
+            "row_min": 281,
+            "column_max": 93,
+            "row_max": 289,
+            "content": "to"
+        },
+        {
+            "id": 123,
+            "column_min": 96,
+            "row_min": 283,
+            "column_max": 123,
+            "row_max": 292,
+            "content": "grow"
+        },
+        {
+            "id": 124,
+            "column_min": 127,
+            "row_min": 280,
+            "column_max": 187,
+            "row_max": 292,
+            "content": "population"
+        },
+        {
+            "id": 128,
+            "column_min": 7,
+            "row_min": 312,
+            "column_max": 47,
+            "row_max": 321,
+            "content": "Growth"
+        },
+        {
+            "id": 129,
+            "column_min": 50,
+            "row_min": 312,
+            "column_max": 75,
+            "row_max": 321,
+            "content": "food"
+        },
+        {
+            "id": 130,
+            "column_min": 79,
+            "row_min": 315,
+            "column_max": 97,
+            "row_max": 324,
+            "content": "per"
+        },
+        {
+            "id": 131,
+            "column_min": 100,
+            "row_min": 313,
+            "column_max": 123,
+            "row_max": 321,
+            "content": "turn,"
+        },
+        {
+            "id": 133,
+            "column_min": 7,
+            "row_min": 333,
+            "column_max": 62,
+            "row_max": 341,
+            "content": "Amenities"
+        },
+        {
+            "id": 134,
+            "column_min": 65,
+            "row_min": 332,
+            "column_max": 103,
+            "row_max": 344,
+            "content": "growth"
+        },
+        {
+            "id": 135,
+            "column_min": 107,
+            "row_min": 332,
+            "column_max": 141,
+            "row_max": 341,
+            "content": "bonus"
+        },
+        {
+            "id": 137,
+            "column_min": 7,
+            "row_min": 352,
+            "column_max": 38,
+            "row_max": 361,
+            "content": "Other"
+        },
+        {
+            "id": 138,
+            "column_min": 41,
+            "row_min": 352,
+            "column_max": 80,
+            "row_max": 364,
+            "content": "growth"
+        },
+        {
+            "id": 139,
+            "column_min": 84,
+            "row_min": 352,
+            "column_max": 129,
+            "row_max": 361,
+            "content": "bonuses"
+        },
+        {
+            "id": 143,
+            "column_min": 8,
+            "row_min": 384,
+            "column_max": 56,
+            "row_max": 393,
+            "content": "Modified"
+        },
+        {
+            "id": 144,
+            "column_min": 60,
+            "row_min": 384,
+            "column_max": 85,
+            "row_max": 393,
+            "content": "food"
+        },
+        {
+            "id": 145,
+            "column_min": 89,
+            "row_min": 387,
+            "column_max": 106,
+            "row_max": 396,
+            "content": "per"
+        },
+        {
+            "id": 146,
+            "column_min": 109,
+            "row_min": 385,
+            "column_max": 132,
+            "row_max": 393,
+            "content": "turn"
+        },
+        {
+            "id": 148,
+            "column_min": 8,
+            "row_min": 405,
+            "column_max": 52,
+            "row_max": 416,
+            "content": "Housing"
+        },
+        {
+            "id": 149,
+            "column_min": 56,
+            "row_min": 404,
+            "column_max": 110,
+            "row_max": 416,
+            "content": "multiplier"
+        },
+        {
+            "id": 151,
+            "column_min": 7,
+            "row_min": 424,
+            "column_max": 58,
+            "row_max": 436,
+            "content": "\u2018Occupied"
+        },
+        {
+            "id": 152,
+            "column_min": 62,
+            "row_min": 425,
+            "column_max": 81,
+            "row_max": 435,
+            "content": "city"
+        },
+        {
+            "id": 153,
+            "column_min": 84,
+            "row_min": 424,
+            "column_max": 139,
+            "row_max": 436,
+            "content": "multiplier"
+        },
+        {
+            "id": 161,
+            "column_min": 946,
+            "row_min": 437,
+            "column_max": 974,
+            "row_max": 449,
+            "content": "@16"
+        },
+        {
+            "id": 162,
+            "column_min": 985,
+            "row_min": 439,
+            "column_max": 1003,
+            "row_max": 449,
+            "content": "es"
+        },
+        {
+            "id": 166,
+            "column_min": 860,
+            "row_min": 478,
+            "column_max": 862,
+            "row_max": 481,
+            "content": "("
+        },
+        {
+            "id": 167,
+            "column_min": 866,
+            "row_min": 452,
+            "column_max": 990,
+            "row_max": 503,
+            "content": "EO"
+        },
+        {
+            "id": 168,
+            "column_min": 1002,
+            "row_min": 448,
+            "column_max": 1034,
+            "row_max": 494,
+            "content": "ay"
+        },
+        {
+            "id": 181,
+            "column_min": 7,
+            "row_min": 457,
+            "column_max": 35,
+            "row_max": 466,
+            "content": "Total"
+        },
+        {
+            "id": 182,
+            "column_min": 39,
+            "row_min": 457,
+            "column_max": 65,
+            "row_max": 466,
+            "content": "Food"
+        },
+        {
+            "id": 183,
+            "column_min": 69,
+            "row_min": 457,
+            "column_max": 110,
+            "row_max": 469,
+            "content": "surplus"
+        },
+        {
+            "id": 223,
+            "column_min": 31,
+            "row_min": 492,
+            "column_max": 108,
+            "row_max": 502,
+            "content": "GROWTHIN"
+        },
+        {
+            "id": 224,
+            "column_min": 115,
+            "row_min": 489,
+            "column_max": 124,
+            "row_max": 504,
+            "content": "3"
+        },
+        {
+            "id": 228,
+            "column_min": 23,
+            "row_min": 552,
+            "column_max": 33,
+            "row_max": 564,
+            "content": "7"
+        },
+        {
+            "id": 230,
+            "column_min": 147,
+            "row_min": 560,
+            "column_max": 191,
+            "row_max": 570,
+            "content": "Status:"
+        },
+        {
+            "id": 232,
+            "column_min": 23,
+            "row_min": 582,
+            "column_max": 86,
+            "row_max": 596,
+            "content": "ance"
+        },
+        {
+            "id": 233,
+            "column_min": 146,
+            "row_min": 576,
+            "column_max": 199,
+            "row_max": 587,
+            "content": "Content"
+        },
+        {
+            "id": 241,
+            "column_min": 18,
+            "row_min": 616,
+            "column_max": 44,
+            "row_max": 646,
+            "content": "3"
+        },
+        {
+            "id": 242,
+            "column_min": 55,
+            "row_min": 618,
+            "column_max": 98,
+            "row_max": 626,
+            "content": "Citizens"
+        },
+        {
+            "id": 243,
+            "column_min": 101,
+            "row_min": 620,
+            "column_max": 118,
+            "row_max": 626,
+            "content": "are"
+        },
+        {
+            "id": 244,
+            "column_min": 121,
+            "row_min": 617,
+            "column_max": 170,
+            "row_max": 627,
+            "content": "satisfied,"
+        },
+        {
+            "id": 245,
+            "column_min": 174,
+            "row_min": 620,
+            "column_max": 187,
+            "row_max": 626,
+            "content": "no"
+        },
+        {
+            "id": 246,
+            "column_min": 191,
+            "row_min": 618,
+            "column_max": 233,
+            "row_max": 629,
+            "content": "positive"
+        },
+        {
+            "id": 247,
+            "column_min": 236,
+            "row_min": 620,
+            "column_max": 247,
+            "row_max": 626,
+            "content": "or"
+        },
+        {
+            "id": 249,
+            "column_min": 56,
+            "row_min": 635,
+            "column_max": 103,
+            "row_max": 646,
+            "content": "negative"
+        },
+        {
+            "id": 250,
+            "column_min": 106,
+            "row_min": 634,
+            "column_max": 145,
+            "row_max": 643,
+            "content": "effects."
+        },
+        {
+            "id": 252,
+            "column_min": 10,
+            "row_min": 673,
+            "column_max": 65,
+            "row_max": 681,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 253,
+            "column_min": 68,
+            "row_min": 672,
+            "column_max": 93,
+            "row_max": 681,
+            "content": "from"
+        },
+        {
+            "id": 254,
+            "column_min": 97,
+            "row_min": 673,
+            "column_max": 134,
+            "row_max": 683,
+            "content": "Luxury"
+        },
+        {
+            "id": 255,
+            "column_min": 137,
+            "row_min": 675,
+            "column_max": 191,
+            "row_max": 681,
+            "content": "resources:"
+        },
+        {
+            "id": 257,
+            "column_min": 10,
+            "row_min": 699,
+            "column_max": 65,
+            "row_max": 707,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 258,
+            "column_min": 68,
+            "row_min": 698,
+            "column_max": 93,
+            "row_max": 707,
+            "content": "from"
+        },
+        {
+            "id": 259,
+            "column_min": 97,
+            "row_min": 699,
+            "column_max": 129,
+            "row_max": 707,
+            "content": "Civics:"
+        },
+        {
+            "id": 262,
+            "column_min": 10,
+            "row_min": 725,
+            "column_max": 65,
+            "row_max": 733,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 263,
+            "column_min": 68,
+            "row_min": 724,
+            "column_max": 93,
+            "row_max": 733,
+            "content": "from"
+        },
+        {
+            "id": 264,
+            "column_min": 97,
+            "row_min": 725,
+            "column_max": 179,
+            "row_max": 733,
+            "content": "Entertainment:"
+        },
+        {
+            "id": 267,
+            "column_min": 10,
+            "row_min": 751,
+            "column_max": 65,
+            "row_max": 759,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 268,
+            "column_min": 68,
+            "row_min": 750,
+            "column_max": 93,
+            "row_max": 759,
+            "content": "from"
+        },
+        {
+            "id": 269,
+            "column_min": 97,
+            "row_min": 751,
+            "column_max": 126,
+            "row_max": 759,
+            "content": "Great"
+        },
+        {
+            "id": 270,
+            "column_min": 130,
+            "row_min": 750,
+            "column_max": 169,
+            "row_max": 762,
+            "content": "People:"
+        },
+        {
+            "id": 273,
+            "column_min": 10,
+            "row_min": 777,
+            "column_max": 65,
+            "row_max": 785,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 274,
+            "column_min": 68,
+            "row_min": 776,
+            "column_max": 93,
+            "row_max": 785,
+            "content": "from"
+        },
+        {
+            "id": 275,
+            "column_min": 97,
+            "row_min": 777,
+            "column_max": 157,
+            "row_max": 787,
+            "content": "City-States:"
+        },
+        {
+            "id": 278,
+            "column_min": 10,
+            "row_min": 803,
+            "column_max": 65,
+            "row_max": 811,
+            "content": "Amenities"
+        },
+        {
+            "id": 279,
+            "column_min": 68,
+            "row_min": 802,
+            "column_max": 93,
+            "row_max": 811,
+            "content": "from"
+        },
+        {
+            "id": 280,
+            "column_min": 97,
+            "row_min": 802,
+            "column_max": 144,
+            "row_max": 814,
+            "content": "Religion:"
+        },
+        {
+            "id": 283,
+            "column_min": 10,
+            "row_min": 829,
+            "column_max": 65,
+            "row_max": 837,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 284,
+            "column_min": 68,
+            "row_min": 828,
+            "column_max": 93,
+            "row_max": 837,
+            "content": "from"
+        },
+        {
+            "id": 285,
+            "column_min": 97,
+            "row_min": 828,
+            "column_max": 143,
+            "row_max": 837,
+            "content": "National"
+        },
+        {
+            "id": 286,
+            "column_min": 147,
+            "row_min": 828,
+            "column_max": 178,
+            "row_max": 837,
+            "content": "Parks:"
+        },
+        {
+            "id": 289,
+            "column_min": 10,
+            "row_min": 855,
+            "column_max": 65,
+            "row_max": 863,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 290,
+            "column_min": 68,
+            "row_min": 854,
+            "column_max": 93,
+            "row_max": 863,
+            "content": "from"
+        },
+        {
+            "id": 291,
+            "column_min": 97,
+            "row_min": 855,
+            "column_max": 118,
+            "row_max": 863,
+            "content": "War"
+        },
+        {
+            "id": 292,
+            "column_min": 121,
+            "row_min": 855,
+            "column_max": 178,
+            "row_max": 863,
+            "content": "Weariness:"
+        },
+        {
+            "id": 295,
+            "column_min": 10,
+            "row_min": 881,
+            "column_max": 65,
+            "row_max": 889,
+            "content": "\u2018Amenities"
+        },
+        {
+            "id": 296,
+            "column_min": 68,
+            "row_min": 880,
+            "column_max": 93,
+            "row_max": 889,
+            "content": "from"
+        },
+        {
+            "id": 297,
+            "column_min": 97,
+            "row_min": 880,
+            "column_max": 162,
+            "row_max": 892,
+            "content": "Bankruptcy:"
+        },
+        {
+            "id": 301,
+            "column_min": 9,
+            "row_min": 909,
+            "column_max": 37,
+            "row_max": 918,
+            "content": "Total"
+        },
+        {
+            "id": 302,
+            "column_min": 40,
+            "row_min": 910,
+            "column_max": 95,
+            "row_max": 918,
+            "content": "Amenities"
+        },
+        {
+            "id": 314,
+            "column_min": 1320,
+            "row_min": 950,
+            "column_max": 1345,
+            "row_max": 974,
+            "content": "G)"
+        },
+        {
+            "id": 315,
+            "column_min": 1363,
+            "row_min": 955,
+            "column_max": 1373,
+            "row_max": 970,
+            "content": "7"
+        },
+        {
+            "id": 317,
+            "column_min": 1503,
+            "row_min": 944,
+            "column_max": 1508,
+            "row_max": 973,
+            "content": "|"
+        },
+        {
+            "id": 318,
+            "column_min": 1512,
+            "row_min": 954,
+            "column_max": 1573,
+            "row_max": 968,
+            "content": "Shipyard"
+        },
+        {
+            "id": 321,
+            "column_min": 1512,
+            "row_min": 975,
+            "column_max": 1542,
+            "row_max": 983,
+            "content": "425%"
+        },
+        {
+            "id": 322,
+            "column_min": 1545,
+            "row_min": 974,
+            "column_max": 1586,
+            "row_max": 983,
+            "content": "combat"
+        },
+        {
+            "id": 324,
+            "column_min": 1511,
+            "row_min": 988,
+            "column_max": 1571,
+            "row_max": 999,
+            "content": "experience"
+        },
+        {
+            "id": 325,
+            "column_min": 1574,
+            "row_min": 987,
+            "column_max": 1605,
+            "row_max": 996,
+            "content": "forall"
+        },
+        {
+            "id": 327,
+            "column_min": 1512,
+            "row_min": 1000,
+            "column_max": 1540,
+            "row_max": 1009,
+            "content": "naval"
+        },
+        {
+            "id": 328,
+            "column_min": 1544,
+            "row_min": 1001,
+            "column_max": 1571,
+            "row_max": 1009,
+            "content": "units"
+        },
+        {
+            "id": 329,
+            "column_min": 1574,
+            "row_min": 1000,
+            "column_max": 1614,
+            "row_max": 1009,
+            "content": "trained"
+        },
+        {
+            "id": 330,
+            "column_min": 1618,
+            "row_min": 1001,
+            "column_max": 1627,
+            "row_max": 1009,
+            "content": "in"
+        },
+        {
+            "id": 334,
+            "column_min": 1324,
+            "row_min": 974,
+            "column_max": 1373,
+            "row_max": 994,
+            "content": "YGQ"
+        },
+        {
+            "id": 337,
+            "column_min": 1449,
+            "row_min": 983,
+            "column_max": 1495,
+            "row_max": 991,
+            "content": "cinizens"
+        },
+        {
+            "id": 351,
+            "column_min": 1436,
+            "row_min": 1009,
+            "column_max": 1495,
+            "row_max": 1017,
+            "content": "\u2018AMENITIES."
+        },
+        {
+            "id": 352,
+            "column_min": 1511,
+            "row_min": 1013,
+            "column_max": 1531,
+            "row_max": 1022,
+            "content": "this"
+        },
+        {
+            "id": 353,
+            "column_min": 1534,
+            "row_min": 1014,
+            "column_max": 1556,
+            "row_max": 1025,
+            "content": "city."
+        },
+        {
+            "id": 354,
+            "column_min": 1562,
+            "row_min": 1014,
+            "column_max": 1592,
+            "row_max": 1022,
+            "content": "Bonus"
+        },
+        {
+            "id": 355,
+            "column_min": 1601,
+            "row_min": 1012,
+            "column_max": 1611,
+            "row_max": 1021,
+            "content": "@"
+        },
+        {
+            "id": 357,
+            "column_min": 1512,
+            "row_min": 1026,
+            "column_max": 1620,
+            "row_max": 1038,
+            "content": "Production"
+        },
+        {
+            "id": 358,
+            "column_min": 1578,
+            "row_min": 1016,
+            "column_max": 1605,
+            "row_max": 1045,
+            "content": "equal"
+        },
+        {
+            "id": 359,
+            "column_min": 1611,
+            "row_min": 1016,
+            "column_max": 1624,
+            "row_max": 1045,
+            "content": "to"
+        },
+        {
+            "id": 361,
+            "column_min": 1445,
+            "row_min": 1032,
+            "column_max": 1495,
+            "row_max": 1040,
+            "content": "HOUSING"
+        },
+        {
+            "id": 362,
+            "column_min": 1499,
+            "row_min": 1028,
+            "column_max": 1502,
+            "row_max": 1057,
+            "content": "|"
+        },
+        {
+            "id": 363,
+            "column_min": 1512,
+            "row_min": 1028,
+            "column_max": 1587,
+            "row_max": 1057,
+            "content": "thoadiaconcv"
+        },
+        {
+            "id": 364,
+            "column_min": 1590,
+            "row_min": 1028,
+            "column_max": 1623,
+            "row_max": 1057,
+            "content": "bantie"
         }
     ]
 }
