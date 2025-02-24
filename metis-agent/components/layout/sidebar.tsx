@@ -14,19 +14,16 @@ import {
   Monitor,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MindMap } from "@/components/MindMap"; // Your MindMap component
 import { useRecordingContext } from "@/components/RecordingContext";
 
 export function Sidebar() {
-  // Destructure the functions from our updated recording context.
-  const { recording, startScreenCapture, stopScreenCapture } = useRecordingContext();
+  const { recording, startRecording, stopRecording } = useRecordingContext();
 
-  // Handler that calls the appropriate function.
-  const handleRecordingToggle = () => {
+  const handleRecordingToggle = async () => {
     if (recording) {
-      stopScreenCapture();
+      await stopRecording();
     } else {
-      startScreenCapture();
+      await startRecording();
     }
   };
 
@@ -34,12 +31,7 @@ export function Sidebar() {
     <div className="bg-white dark:bg-zinc-900 border-r border-border w-64 flex flex-col">
       {/* Logo and Title */}
       <div className="p-4 border-b border-border flex items-center space-x-2">
-        <Image
-          src="/logo.svg"
-          alt="Automation Agent Logo"
-          width={32}
-          height={32}
-        />
+        <Image src="/logo.svg" alt="Automation Agent Logo" width={32} height={32} />
         <h1 className="text-xl font-bold">Metis</h1>
       </div>
 
@@ -82,11 +74,6 @@ export function Sidebar() {
           </div>
         </Link>
       </nav>
-
-      {/* Mind Map Component */}
-      <div className="p-4">
-        <MindMap />
-      </div>
 
       {/* Recording Button */}
       <div className="p-4">

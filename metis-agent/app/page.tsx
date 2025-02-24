@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,14 +14,12 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useMindMapContext } from "@/components/MindMapContext";
-import { useRecordingContext } from "@/components/RecordingContext";
 import { MonitorOff, Monitor } from "lucide-react";
+import { invoke } from "@tauri-apps/api/core";
+import { useRecordingContext } from "@/components/RecordingContext";
 
 // Register Chart.js components.
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-// URL for the Flask backend.
-const FLASK_SERVER_URL = "http://localhost:5000";
 
 export default function DashboardPage() {
   // Dummy activity data.
@@ -48,108 +46,15 @@ export default function DashboardPage() {
   const [command, setCommand] = useState("");
   const { setHighlightQuery } = useMindMapContext();
 
-  // Recording context.
-  const { recording, screenStream, startScreenCapture, stopScreenCapture } = useRecordingContext();
+  // Use the new recording context.
+  const { recording, latestFrame, startRecording, stopRecording } = useRecordingContext();
 
-  // Video element ref.
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Global recording settings from localStorage.
-  const [baseFolder, setBaseFolder] = useState<string | null>(null);
-  const [encryptionPassword, setEncryptionPassword] = useState<string>("");
-
-  useEffect(() => {
-    const folder = localStorage.getItem("baseFolder");
-    const pass = localStorage.getItem("encryptionPassword");
-    if (folder) setBaseFolder(folder);
-    if (pass) setEncryptionPassword(pass);
-  }, []);
-
-  // Summary text state.
-  const [summaryText, setSummaryText] = useState<string>("");
-
-  // Attach the screen stream to the video element (if available).
-  useEffect(() => {
-    if (recording && screenStream && videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.srcObject = screenStream;
-      videoRef.current.load();
-      videoRef.current
-        .play()
-        .catch((err) => {
-          if (err.name !== "AbortError") {
-            console.error("Error playing video:", err);
-          }
-        });
-    }
-  }, [recording, screenStream]);
-
-  // When the recording button is pressed, simply send a start or stop recording request.
+  // Handle recording toggle.
   const handleRecordingToggle = async () => {
     if (recording) {
-      // Stop local capture.
-      stopScreenCapture();
-      // When stopping, call the backend stopRecording API.
-      if (baseFolder && encryptionPassword) {
-        try {
-          const res = await fetch(
-            `${FLASK_SERVER_URL}/api/stopRecording?baseFolder=${encodeURIComponent(
-              baseFolder
-            )}&encryptionPassword=${encodeURIComponent(encryptionPassword)}`,
-            { method: "POST" }
-          );
-          if (!res.ok) {
-            const errorText = await res.text();
-            console.error("Error stopping recording:", errorText);
-          } else {
-            const data = await res.json();
-            console.log("Recording stopped and processed:", data);
-          }
-        } catch (err) {
-          console.error("Error stopping recording:", err);
-        }
-        // Then call the summarization endpoint.
-        try {
-          const res = await fetch(
-            `${FLASK_SERVER_URL}/api/summarizeRecording?baseFolder=${encodeURIComponent(baseFolder)}`
-          );
-          if (!res.ok) {
-            const errorText = await res.text();
-            console.error("Summarization error:", errorText);
-          } else {
-            const data = await res.json();
-            setSummaryText(data.summary);
-            console.log("Summary:", data.summary);
-          }
-        } catch (err) {
-          console.error("Error summarizing recording:", err);
-        }
-      }
+      await stopRecording();
     } else {
-      if (!baseFolder || !encryptionPassword) {
-        console.error("Global recording folder or encryption password not set in settings.");
-        return;
-      }
-      // Start local capture (if you wish to show the screen stream).
-      startScreenCapture();
-      // Tell the backend to start recording.
-      try {
-        const res = await fetch(`${FLASK_SERVER_URL}/api/startRecording`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ baseFolder }),
-        });
-        if (!res.ok) {
-          const errorText = await res.text();
-          console.error("Error starting recording:", errorText);
-        } else {
-          const data = await res.json();
-          console.log("Recording started:", data);
-        }
-      } catch (err) {
-        console.error("Error starting recording:", err);
-      }
-      setSummaryText("");
+      await startRecording();
     }
   };
 
@@ -169,8 +74,12 @@ export default function DashboardPage() {
           <div className="flex flex-col space-y-4">
             <div className="flex flex-col gap-4">
               <div className="w-full h-64 border border-input rounded-lg flex items-center justify-center">
-                {recording && screenStream ? (
-                  <video ref={videoRef} className="w-full h-full object-cover rounded-lg" />
+                {recording && latestFrame ? (
+                  <img
+                    src={latestFrame}
+                    alt="Live capture"
+                    className="w-full h-full object-cover rounded-lg"
+                  />
                 ) : recording ? (
                   <Monitor className="w-16 h-16 text-accent" />
                 ) : (
@@ -241,11 +150,19 @@ export default function DashboardPage() {
           </Button>
         </Card>
       </div>
-      {/* Summary Display */}
-      {summaryText && (
+      {/* Live View Display */}
+      {recording && (
         <Card className="p-4 mt-8">
-          <h3 className="font-bold mb-2">Recording Summary</h3>
-          <p>{summaryText}</p>
+          <h3 className="font-bold mb-2">Live View</h3>
+          {latestFrame ? (
+            <img
+              src={latestFrame}
+              alt="Live capture"
+              className="w-full object-cover rounded-lg"
+            />
+          ) : (
+            <p>Waiting for first frame...</p>
+          )}
         </Card>
       )}
       {/* Fixed Command Box */}
