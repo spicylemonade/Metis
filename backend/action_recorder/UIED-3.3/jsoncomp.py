@@ -39,7 +39,7 @@ def decode_keys(data):
 # --- Saving (Writing) the Compressed Data ---
 
 # Load original JSON data
-with open("data/output\merge2\image.json", "r") as f:
+with open("data/output/merge2/image.json", "r") as f:
     data = json.load(f)
 
 # Step 1: Encode the data using our key mapping.
@@ -62,7 +62,7 @@ with open("data_compressed.bin", "wb") as f:
 print("Data successfully compressed and saved to 'data_compressed.bin'.")
 
 # --- Compare File Sizes ---
-original_size = os.path.getsize("data/output\merge2\image.json")
+original_size = os.path.getsize("data/output/merge2/image.json")
 minified_size = os.path.getsize("data_minified.json")
 compressed_size = os.path.getsize("data_compressed.bin")
 

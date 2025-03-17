@@ -19,6 +19,7 @@ import { MonitorOff, Monitor, Play, AlertCircle } from "lucide-react";
 import { useRecordingContext } from "@/components/RecordingContext";
 import { automationManager } from "@/lib/automation-manager";
 import { actionAnalyzer } from "@/lib/action-analyzer";
+import { invoke } from "@tauri-apps/api/core";
 import { actionExecutor } from "@/lib/action-executor";
 
 // Register Chart.js components.
@@ -98,23 +99,32 @@ export default function DashboardPage() {
   // Handle command execution
   const handleCommandExecution = async () => {
     if (!command.trim()) return;
-    
+
+
+
     setIsCommandLoading(true);
     try {
-      // Simplified implementation - in a real app, this would use an LLM or similar
-      // to interpret the command and execute the corresponding actions
-      console.log("Executing command:", command);
-      
-      // For demonstration, just run the first automation if command contains "run"
-      if (command.toLowerCase().includes("run") && activeAutomations.length > 0) {
-        await automationManager.runAutomation(activeAutomations[0].id);
+      console.log("here bruh");
+      // Call the Tauri command 'start_action' with the command text
+      const result = await invoke('start_act', { command: command });
+
+      console.log("Action execution result:", result);
+
+      // If action was successful, you might want to update UI or show a notification
+      if (result === true) {
+        // Success handling (optional)
+        console.log("Command executed successfully");
+      } else {
+        // If result is not true, it might be an error message
+        console.warn("Command execution returned:", result);
       }
-      
+
       // Reset the command
       setCommand("");
       setHighlightQuery("");
     } catch (error) {
       console.error("Failed to execute command:", error);
+      // Optionally show an error notification to the user
     } finally {
       setIsCommandLoading(false);
     }

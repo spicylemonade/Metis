@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "tauri": "tauri",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
@@ -31,7 +32,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tauri-apps/cli": "^2.2.7",
+    "@tauri-apps/cli": "^2.3.1",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
