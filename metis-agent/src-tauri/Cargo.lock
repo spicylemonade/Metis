@@ -3,6 +3,15 @@
 version = 3
 
 [[package]]
+name = "ZuckGate"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "98a78a50dd88da7d26d1a3dff0ba6e635cb6fe56591a8c5bfd03208f96cd32d0"
+dependencies = [
+ "native-tls",
+]
+
+[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -100,6 +109,7 @@ dependencies = [
  "dirs 4.0.0",
  "enigo",
  "futures",
+ "gemini-ai",
  "gemini-rs",
  "image 0.24.9",
  "log",
@@ -109,6 +119,7 @@ dependencies = [
  "regex",
  "reqwest 0.11.27",
  "scrap",
+ "secrecy",
  "serde",
  "serde_json",
  "tauri",
@@ -496,6 +507,12 @@ dependencies = [
  "serde",
  "windows-targets 0.52.6",
 ]
+
+[[package]]
+name = "chunked_transfer"
+version = "1.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6e4de3bc4ea267985becf712dc6d9eed8b04c953b3fcfb339ebc87acd9804901"
 
 [[package]]
 name = "cocoa"
@@ -982,6 +999,12 @@ dependencies = [
  "quote",
  "syn 2.0.98",
 ]
+
+[[package]]
+name = "dotenv"
+version = "0.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "dpi"
@@ -1472,10 +1495,28 @@ dependencies = [
 ]
 
 [[package]]
-name = "gemini-rs"
-version = "1.0.0"
+name = "gemini-ai"
+version = "0.1.1682"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cd96b9afb923adce7ffc4b52e13f4d1dde9ad015d52e68f60e45ff3c2e4dd635"
+checksum = "86210eb75cf2afb4033e37b0693fe51b9265e53595af5aa574676b33f0f50ca9"
+dependencies = [
+ "base64 0.22.1",
+ "chunked_transfer",
+ "csv",
+ "dotenv",
+ "httparse",
+ "native-tls",
+ "regex",
+ "rusty-scrap",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "gemini-rs"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd4f0699f989a7aba63a760b8fa6d501a42a1c4e4ee40c2082b3277baac182f6"
 dependencies = [
  "futures",
  "reqwest 0.12.12",
@@ -1848,10 +1889,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "httparse"
-version = "1.10.0"
+name = "http-scrap"
+version = "0.1.1134"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f2d708df4e7140240a16cd6ab0ab65c972d7433ab77819ea693fde9c43811e2a"
+checksum = "6b97b5d245c0e9f3d6da7fdf5ad504e279e1a172e8b347532f928bdbf3714a1f"
+
+[[package]]
+name = "httparse"
+version = "1.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6dbf3de79e51f3d586ab4cb9d5c3e2c14aa28ed23d180cf89b4df0454a69cc87"
 
 [[package]]
 name = "httpdate"
@@ -4042,6 +4089,18 @@ name = "rustversion"
 version = "1.0.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f7c45b9784283f1b2e7fb61b42047c2fd678ef0960d4f6f1eba131594cc369d4"
+
+[[package]]
+name = "rusty-scrap"
+version = "0.1.10"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e3b1162f4e3059875ef8b18aace3e992c9269ac6e75dbc9766ba83720f11b456"
+dependencies = [
+ "ZuckGate",
+ "http-scrap",
+ "native-tls",
+ "regex",
+]
 
 [[package]]
 name = "ryu"

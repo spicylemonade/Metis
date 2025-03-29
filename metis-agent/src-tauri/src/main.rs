@@ -1,631 +1,817 @@
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 /*
-Input Metrics:
-- Simple Clicking: On a mouse button press, take one screenshot 1 second after the press.
-- Click and Drag: Take a screenshot 1 second after the press and another 1 second after release.
+Input Metrics Logic (now handled in the single global listener):
+- Simple Clicking: On a mouse button press, take one screenshot 0.5 second after the press. (Adjusted timing from original comment)
+- Click and Drag: Requires tracking mouse press/release state. Screenshot logic tied to ButtonPress/Release.
 - Keyboard Typing:
-   • If fewer than 4 keys are pressed within 2 seconds, take a screenshot 1 second after a key press.
-   • If more than 3 keys are pressed in under 2 seconds, cancel any pending screenshot and only take one 
-     after 1 second of no typing.
+   • If fewer than 4 keys are pressed within 2 seconds, take a screenshot 1 second after a key press (if > 1s idle).
+   • If more than 3 keys are pressed in under 2 seconds, only take one after 1 second of no typing.
 - Mouse Movement (without a click) does not trigger a screenshot.
 */
 
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-
 mod llm;
 mod action;
+
 #[cfg(target_os = "linux")]
 use x11::xlib;
 use std::{
     io::Cursor,
-    path::PathBuf,
-    sync::Mutex,
+    path::{Path, PathBuf},
+    sync::{Arc, Mutex}, // Added Arc
     thread,
     time::{Duration, SystemTime, UNIX_EPOCH},
+    fs, // Added fs
 };
 use std::collections::VecDeque;
+// Removed VecDeque as it seems unused
 use once_cell::sync::Lazy;
-use dirs::download_dir; // For user's Downloads folder
+use dirs::download_dir;
 use tauri;
-use rdev::{listen, EventType};
-use image::{DynamicImage, ImageError, ImageOutputFormat};
+use rdev::{listen, Event, EventType, Key}; // Added Key, Event
+use image::{ImageError, ImageOutputFormat}; // Removed DynamicImage as capture_screen returns it directly
 use base64::engine::general_purpose::STANDARD;
-use base64::Engine; // Bring the Engine trait into scope
-use enigo::{Enigo, Mouse, Settings};
-// Use xcap for screen capture.
+use base64::Engine;
+use enigo::{Enigo, Mouse, Settings}; // Keep Enigo parts used by mouse tracker
 use xcap::Monitor;
+use csv::{ReaderBuilder, WriterBuilder, StringRecord}; // Keep CSV helpers
+use regex::Regex; // Keep Regex
+use reqwest::blocking::Client; // Keep reqwest
+use serde_json::json; // Keep serde_json
 
-use reqwest::blocking::Client;
-use serde_json::json;
+// --- Shared Application State Management ---
 
-/// Returns the default base folder: user's Downloads folder joined with "screenshots"
-fn get_default_base_folder() -> PathBuf {
-    download_dir()
-        .unwrap_or_else(|| PathBuf::from("C:\\Downloads"))
-        .join("screenshots")
+#[derive(Debug, Clone, PartialEq)]
+pub enum AppInputState {
+    Idle,
+    Recording,
+    ExecutingAction,
 }
 
-/// Global recording state with input metrics.
+// Holds state relevant across the entire application lifecycle
+pub struct GlobalAppState {
+    pub input_state: AppInputState,
+    pub action_interrupted: bool, // Flag specifically for interrupting execute_task_loop via ESC
+    // Add other globally relevant state if needed later
+}
+
+impl Default for GlobalAppState {
+    fn default() -> Self {
+        GlobalAppState {
+            input_state: AppInputState::Idle,
+            action_interrupted: false,
+        }
+    }
+}
+
+// Thread-safe global state
+// Encapsulated in Arc<Mutex<...>> for safe sharing across threads
+pub static GLOBAL_APP_STATE: Lazy<Arc<Mutex<GlobalAppState>>> =
+    Lazy::new(|| Arc::new(Mutex::new(GlobalAppState::default())));
+
+// --- Recording Specific State ---
+// Kept separate for fields only relevant during active recording periods
 #[derive(Default)]
-struct RecordingState {
-    active: bool,
-    verified: bool,
-    base_folder: Option<String>,
-    current_action_folder: Option<String>,
-    mouse_location: Option<(i32, i32)>,
-    last_capture: u64,
-    // Mouse events:
-    last_mouse_press: Option<SystemTime>,
-    mouse_button_pressed: bool,
-
-    // Keyboard events:
-    key_press_count: u32,
-
-    last_key_press: Option<SystemTime>,
+pub struct RecordingState {
+    active: bool, // Is recording logically active?
+    verified: bool, // Has verification step been done?
+    base_folder: Option<String>, // Where are we saving this recording session?
+    current_action_folder: Option<String>, // Name of the subfolder (e.g., "action_0")
+    mouse_location: Option<(i32, i32)>, // Last known mouse location
+    // --- Input Metrics Tracking ---
+    last_mouse_press_time: Option<SystemTime>, // When was mouse last pressed?
+    is_mouse_button_down: bool, // Is a button currently held? (Simplified)
+    recent_key_press_times: VecDeque<SystemTime>, // Track timestamps of recent key presses
+    // Limit the queue size, e.g., track last 10 presses
+    // last_keyboard_activity: SystemTime, // When was the last key press/release?
+    // pending_keyboard_screenshot: Option<tokio::task::JoinHandle<()>>, // Handle for cancellable screenshot task
+    // --- End Input Metrics Tracking ---
 }
 
-struct Skill{
-    connections: Option<Vec<Skill>>,
-    Value: String,
-    connection_size: u32,
-    size: u32,
-}
-/// Global variable to hold the most recent frame (as base64 PNG).
-static LATEST_FRAME: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
-
-// In main.rs - make RECORDING_STATE public
+// Separate state for recording details
 pub static RECORDING_STATE: Lazy<Mutex<RecordingState>> =
     Lazy::new(|| Mutex::new(RecordingState::default()));
-
-//
-// Tauri Commands
-//
-
+static LATEST_FRAME: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 #[tauri::command]
 fn start_recording() -> Result<String, String> {
-    let base_folder = get_default_base_folder();
-    let (_, _, encrypted_dir, _) = create_recording_paths(base_folder.to_str().unwrap()).map_err(|e| e.to_string())?;
+    println!("Start recording command received.");
+    // Ensure we are not already recording or executing
+    {
+        let mut app_state = GLOBAL_APP_STATE.lock().unwrap();
+        if app_state.input_state != AppInputState::Idle {
+            return Err(format!("Cannot start recording while in state: {:?}", app_state.input_state));
+        }
+        // Set global state first
+        app_state.input_state = AppInputState::Recording;
+    }
 
-    // Determine the next action folder
+    let base_folder = get_default_base_folder();
+    let base_folder_str = base_folder.to_string_lossy().into_owned(); // Convert early
+    let (_, _, encrypted_dir, _) = create_recording_paths(&base_folder_str)
+        .map_err(|e| format!("Failed to create recording paths: {}", e))?;
+
     let mut action_index = 0;
     loop {
         let action_folder = encrypted_dir.join(format!("action_{}", action_index));
         if !action_folder.exists() {
-            std::fs::create_dir_all(&action_folder).map_err(|e| e.to_string())?;
+            fs::create_dir_all(&action_folder).map_err(|e| format!("Failed to create action folder: {}", e))?;
             break;
         }
         action_index += 1;
+        if action_index > 10000 { // Safety break
+            return Err("Failed to find next available action folder index.".to_string());
+        }
     }
-
-    // Use the new action folder
     let action_folder_name = format!("action_{}", action_index);
 
-    // Create or update main.csv
+    // Create or update main.csv (ensure action::create_main_csv is accessible)
     action::create_main_csv(&base_folder, &action_folder_name)
         .map_err(|e| format!("Failed to update main.csv: {}", e))?;
 
+    // Update recording-specific state
     {
         let mut state = RECORDING_STATE.lock().unwrap();
         state.active = true;
-        state.verified = false;
-        state.base_folder = Some(base_folder.to_str().unwrap().to_string());
-        state.current_action_folder = Some(action_folder_name);  // Set the current action folder
-        state.last_capture = 0;
-        state.last_mouse_press = None;
-        state.mouse_button_pressed = false;
-        state.key_press_count = 0;
-        state.last_key_press = None;
+        state.verified = false; // Requires explicit verification step
+        state.base_folder = Some(base_folder_str.clone());
+        state.current_action_folder = Some(action_folder_name.clone());
+        // Reset metrics
+        state.mouse_location = None;
+        state.last_mouse_press_time = None;
+        state.is_mouse_button_down = false;
+        state.recent_key_press_times = VecDeque::with_capacity(10); // Reset key history
     }
-    thread::spawn(|| {
-        start_input_listeners();
-    });
-    Ok(format!("Recording started with base folder: {:?}", base_folder))
+
+    // --- Start the separate mouse tracker thread ---
+    start_mouse_location_tracker();
+    // --- Removed spawning start_input_listeners; single global listener handles it ---
+
+    Ok(format!("Recording started (Action Folder: {})", action_folder_name))
 }
 
 #[tauri::command]
 fn verify_recording() -> Result<String, String> {
-    {
-        let mut state = RECORDING_STATE.lock().unwrap();
-        if !state.active {
-            return Err("Recording is not active".into());
+    println!("Verify recording command received.");
+    let base_folder: String;
+    { // Scope for locks
+        let app_state = GLOBAL_APP_STATE.lock().unwrap();
+        if app_state.input_state != AppInputState::Recording {
+            return Err("Cannot verify, not in Recording state.".to_string());
         }
-        state.verified = true;
-    }
-    let base_folder = {
-        let state = RECORDING_STATE.lock().unwrap();
-        state
-            .base_folder
-            .clone()
-            .unwrap_or_else(|| get_default_base_folder().to_str().unwrap().to_string())
-    };
-    thread::spawn(move || {
-        // Capture one screenshot immediately; label it "Init"
-        if let Err(e) = capture_and_save_screenshot_with_action(base_folder.as_str(), "Init", Some((0, 0))) {
-            eprintln!("Error capturing screenshot: {}", e);
+
+        let mut rec_state = RECORDING_STATE.lock().unwrap();
+        if !rec_state.active {
+            return Err("Recording is not active (internal state mismatch).".into());
         }
-    });
+        if rec_state.verified {
+            return Ok("Recording already verified.".into()); // Idempotent
+        }
+        rec_state.verified = true;
+        base_folder = rec_state.base_folder.clone().ok_or("Base folder not set during verification.")?;
+        // Capture current mouse position at verification time for the "Init" screenshot
+        let mouse_pos = rec_state.mouse_location; // Read current value
+
+        // Spawn screenshot thread
+        thread::spawn(move || {
+            println!("Capturing initial screenshot after verification...");
+            // Short delay before capturing?
+            // thread::sleep(Duration::from_millis(100));
+            if let Err(e) = capture_and_save_screenshot_with_action(&base_folder, "Init", mouse_pos) {
+                eprintln!("Error capturing initial screenshot: {}", e);
+            }
+        });
+    } // Locks released
     Ok("Recording verified. Input events will now trigger screenshots.".into())
 }
 
 #[tauri::command]
 fn stop_recording(encryption_password: String) -> Result<String, String> {
-    let base_folder = {
-        let state = RECORDING_STATE.lock().unwrap();
-        state.base_folder.clone().ok_or("Base folder not set")?
-    };
-    {
-        let mut state = RECORDING_STATE.lock().unwrap();
-        state.active = false;
-    }
-    // Spawn a background thread to process all raw screenshots.
-    let base_folder_clone = base_folder.clone();
-    let encryption_password_clone = encryption_password.clone();
+    println!("Stop recording command received.");
+    let base_folder: String;
+    { // Scope for locks
+        // Set global state first
+        let mut app_state = GLOBAL_APP_STATE.lock().unwrap();
+        if app_state.input_state != AppInputState::Recording {
+            // Allow stopping even if not recording? Or return error?
+            // Let's allow stopping to ensure state cleanup.
+            println!("Warning: Stop recording called while not in Recording state ({:?}). Forcing state to Idle.", app_state.input_state);
+        }
+        app_state.input_state = AppInputState::Idle; // Go back to Idle
+
+        // Update recording-specific state
+        let mut rec_state = RECORDING_STATE.lock().unwrap();
+        if !rec_state.active {
+            return Ok("Recording was already inactive.".to_string()); // Idempotent
+        }
+        rec_state.active = false; // Mark recording inactive (stops mouse tracker loop)
+        rec_state.verified = false; // Reset verification
+        base_folder = rec_state.base_folder.clone().ok_or("Base folder was not set.")?;
+    } // Locks released
+
+    // Spawn the background processing thread
+    let base_folder_clone = base_folder.clone(); // Clone for thread
     thread::spawn(move || {
-        match process_recording_internal(base_folder_clone.as_str(), encryption_password_clone) {
-            Ok(res) => println!("Processing complete: :)"),
-            Err(e) => eprintln!("Error processing recordings: {}", e),
+        println!("Starting background processing thread...");
+        match process_recording_internal(&base_folder_clone, encryption_password) { // Pass clone
+            Ok(_results) => { // Use _results to silence warning
+                // println!("Processing Results: {:?}", _results); // Optionally log results
+                println!("Background processing complete.");
+            },
+            Err(e) => eprintln!("Error during background processing: {}", e),
         }
     });
+
     Ok("Recording stopped. Processing in background.".to_string())
 }
 
 #[tauri::command]
 fn summarize_recording() -> Result<String, String> {
-    let base_folder = {
-        let state = RECORDING_STATE.lock().unwrap();
-        state.base_folder.clone().ok_or("Base folder not set")?
-    };
-    let summary = summarize_recording_internal(base_folder.as_str())
-        .map_err(|e| e.to_string())?;
-    Ok(summary)
-}
+    println!("Summarize recording command received."); // Good practice to log command entry
 
+    // Determine base folder, falling back to default if not set in state
+    // Using unwrap_or_else to ensure we always get a String path
+    let base_folder_path_str = {
+        RECORDING_STATE.lock().unwrap().base_folder
+            .clone()
+            .unwrap_or_else(|| get_default_base_folder().to_string_lossy().into_owned())
+    };
+
+    // Call the internal function and map the error type
+    let summary_result: Result<String, String> = summarize_recording_internal(&base_folder_path_str)
+        .map_err(|e| {
+            // Optional: Log the original error for better debugging
+            eprintln!("Error in summarize_recording_internal: {:?}", e);
+            // Convert the Box<dyn Error> to the String required by the function signature
+            e.to_string()
+        });
+
+    // Directly return the Result<String, String>
+    // This matches the function signature `-> Result<String, String>`
+    summary_result
+}
 #[tauri::command]
 fn get_latest_frame() -> Result<String, String> {
+    // This remains unchanged, reads from LATEST_FRAME
     let frame = LATEST_FRAME.lock().unwrap();
     if let Some(ref data) = *frame {
         Ok(data.clone())
     } else {
-        // Fallback: 1x1 black pixel PNG.
         let fallback = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUCNdj+P///38ACfsD/6EXSgAAAABJRU5ErkJggg==";
         Ok(fallback.to_string())
     }
 }
 
-//
-// Utility Functions
-//
+// Command to start the action execution loop
+#[tauri::command]
+fn start_act(command: String) -> Result<String, String> {
+    println!("Start action command received: {}", command);
+    // Spawn execute_task_loop in a new thread to avoid blocking Tauri
+    // execute_task_loop itself will handle setting the GLOBAL_APP_STATE
+    match thread::spawn(move || { // Use thread::spawn from std
+        action::execute_task_loop(command) // Call the function in action module
+    }).join() {
+        Ok(result) => result, // Propagate the Result<String, String>
+        Err(panic_info) => {
+            // Try to get more info from panic
+            let payload = panic_info.downcast_ref::<&str>().unwrap_or(&"unknown panic payload");
+            eprintln!("Action execution thread panicked: {:?}", payload);
+            Err(format!("Action execution thread panicked: {}", payload))
+        }
+    }
+}
+
+// Command to update action name during recording
+#[tauri::command]
+fn update_current_action_name(name: String) -> Result<(), String> {
+    println!("Update action name command received: {}", name);
+    if name.trim().is_empty() {
+        return Err("Action name cannot be empty.".to_string());
+    }
+    if name.starts_with("default_") {
+        return Err("Action name cannot start with 'default_'.".to_string());
+    }
+
+    // Check global state first
+    {
+        let app_state = GLOBAL_APP_STATE.lock().unwrap();
+        if app_state.input_state != AppInputState::Recording {
+            return Err(format!("Cannot update name while not in Recording state ({:?})", app_state.input_state));
+        }
+    }
+
+    // Check recording state and get necessary info
+    let (base_folder, current_action_folder) = {
+        let state = RECORDING_STATE.lock().unwrap();
+        if !state.active { // Double check active flag
+            return Err("Recording is not active.".to_string());
+        }
+        (
+            state.base_folder.clone().ok_or("Base folder not set while recording.")?,
+            state.current_action_folder.clone().ok_or("Current action folder not set while recording.")?,
+        )
+    }; // Lock released
+
+    // Call the helper function (ensure it's accessible, maybe move to main.rs?)
+    update_main_csv_entry(&base_folder, &current_action_folder, &name)
+}
+
+// --- CSV Processing Functions (Moved here from action.rs or kept in main.rs) ---
+// --- Utility Functions ---
+
+pub fn get_default_base_folder() -> PathBuf {
+    dirs::download_dir()
+        .unwrap_or_else(|| PathBuf::from("C:\\Downloads")) // Consider platform-specific defaults
+        .join("screenshots")
+}
 
 fn create_recording_paths(base_folder: &str) -> std::io::Result<(PathBuf, PathBuf, PathBuf, PathBuf)> {
     let base = PathBuf::from(base_folder);
     let images = base.join("images");
     let encrypted = base.join("encrypted_csv");
-    let salt = base.join("salt");
-    std::fs::create_dir_all(&images)?;
-    std::fs::create_dir_all(&encrypted)?;
-    std::fs::create_dir_all(&salt)?;
+    let salt = base.join("salt"); // Salt folder seems unused? Keep for now.
+    fs::create_dir_all(&images)?;
+    fs::create_dir_all(&encrypted)?;
+    fs::create_dir_all(&salt)?;
     Ok((base, images, encrypted, salt))
 }
 
-/// Captures a screenshot and saves it with the provided action in its filename.
-/// Captures a screenshot and saves it with the provided action and mouse position in its filename.
-/// Captures a screenshot and saves it with the provided action and mouse position in its filename.
-fn capture_and_save_screenshot_with_action(
-    base_folder: &str,
-    action: &str,
-    mouse_pos: Option<(i32, i32)>  // Changed type to match enigo's return type
-) -> Result<(), Box<dyn std::error::Error>> {
-    // Capture the screenshot
-    let screenshot = match capture_screen() {
-        Ok(screenshot) => screenshot,
-        Err(e) => {
-            eprintln!("Failed to capture screenshot: {}", e);
-            return Err(Box::new(e));
-        }
-    };
-
-    // Get current timestamp
-    let timestamp = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
-
-    // Create necessary directories
-    let (_, images_dir, _, _) = create_recording_paths(base_folder)?;
-
-    // Ensure the images directory exists
-    if !images_dir.exists() {
-        std::fs::create_dir_all(&images_dir)?;
-    }
-
-    // Get the current action folder
-    let action_folder = {
-        let state = RECORDING_STATE.lock().unwrap();
-        state.current_action_folder.clone().unwrap_or_else(|| "action_0".to_string())
-    };
-
-    // Format mouse position for filename
-    let mouse_pos_str = match mouse_pos {
-        Some((x, y)) => format!("_mouse_{}_{}",  x, y),
-        None => String::new(),
-    };
-
-    // Construct the full filename with timestamp, action, action folder, and mouse position
-    let file_path = images_dir.join(format!(
-        "raw_{}_{}_folder_{}{}_.png",
-        timestamp,
-        action,
-        action_folder,
-        mouse_pos_str
-    ));
-
-    // Save the screenshot to the file
-    match screenshot.save(&file_path) {
-        Ok(_) => {},
-        Err(e) => {
-            eprintln!("Failed to save screenshot to {}: {}", file_path.display(), e);
-            return Err(Box::new(e));
-        }
-    }
-
-    // Create a buffer for encoding the screenshot
-    let mut buffer = Cursor::new(Vec::new());
-    screenshot.write_to(&mut buffer, ImageOutputFormat::Png)?;
-
-    // Encode the screenshot for UI display
-    let encoded = STANDARD.encode(buffer.get_ref());
-
-    // Update the latest frame
-    {
-        let mut latest = LATEST_FRAME.lock().unwrap();
-        *latest = Some(encoded);
-    }
-
-    println!("Captured and saved screenshot: {:?} with action: {} and mouse position: {:?}",
-             file_path, action, mouse_pos);
-
-    Ok(())
-}
-/// Listens to global input events and triggers screenshot capture with action labels.
-
-fn start_input_listeners() {
-    // Create enigo instance once
-    let enigo = match Enigo::new(&Settings::default()) {
-        Ok(enigo) => enigo,
-        Err(e) => {
-            eprintln!("Failed to initialize Enigo: {}", e);
-            return;
-        }
-    };
-
-    // Start a separate thread for continuous mouse tracking
-    thread::spawn(move || {
-        while {
-            let state = RECORDING_STATE.lock().unwrap();
-            state.active
-        } {
-            // Get current mouse position using enigo
-            if let Ok((x, y)) = enigo.location() {
-                // Update the state
-                let mut state = RECORDING_STATE.lock().unwrap();
-                if state.active {
-                    state.mouse_location = Some((x, y));
-                }
-            }
-
-            // Sleep to avoid excessive CPU usage
-            thread::sleep(Duration::from_millis(50));
-        }
-    });
-
-    let callback = |event: rdev::Event| {
-        let now = SystemTime::now();
-        let mut state = RECORDING_STATE.lock().unwrap();
-        if !state.active || !state.verified {
-            return;
-        }
-
-        // We don't need to get mouse position here anymore since
-        // it's being continuously updated by the thread above
-        let mouse_pos = state.mouse_location;
-
-        match event.event_type {
-            EventType::ButtonPress(_) => {
-                state.last_mouse_press = Some(now);
-                state.mouse_button_pressed = true;
-                if let Some(folder) = state.base_folder.clone() {
-                    drop(state);
-                    thread::spawn(move || {
-                        thread::sleep(Duration::from_secs_f32(0.5));
-                        let _ = capture_and_save_screenshot_with_action(folder.as_str(), "MousePress", mouse_pos);
-                    });
-                }
-            },
-            // Do the same for other event types...
-            EventType::ButtonRelease(_) => {
-                state.mouse_button_pressed = false;
-                if let Some(folder) = state.base_folder.clone() {
-                    drop(state);
-                    thread::spawn(move || {
-                        thread::sleep(Duration::from_secs_f32(0.5));
-                        let _ = capture_and_save_screenshot_with_action(folder.as_str(), "MouseRelease", mouse_pos);
-                    });
-                }
-            },
-            EventType::Wheel { .. } => {
-                if let Some(folder) = state.base_folder.clone() {
-                    drop(state);
-                    thread::spawn(move || {
-                        thread::sleep(Duration::from_secs_f32(1.0));
-                        let _ = capture_and_save_screenshot_with_action(folder.as_str(), "MouseScroll", mouse_pos);
-                    });
-                }
-            },
-            EventType::KeyPress(key) => {
-                let key_str = format!("{:?}", key);
-                if let Some(last) = state.last_key_press {
-                    if now.duration_since(last).unwrap_or(Duration::from_secs(0)) < Duration::from_secs(2) {
-                        state.key_press_count += 1;
-                    } else {
-                        state.key_press_count = 1;
-                    }
-                } else {
-                    state.key_press_count = 1;
-                }
-                state.last_key_press = Some(now);
-                let current_count = state.key_press_count;
-                if let Some(folder) = state.base_folder.clone() {
-                    drop(state);
-                    thread::spawn(move || {
-                        thread::sleep(Duration::from_secs_f32(1.0));
-                        let state = RECORDING_STATE.lock().unwrap();
-                        if state.last_key_press.map(|t| t.elapsed().unwrap_or(Duration::from_secs(0))) >= Some(Duration::from_secs(1))
-                            && current_count <= 3 {
-                            drop(state);
-                            let _ = capture_and_save_screenshot_with_action(folder.as_str(), &format!("KeyPress_{}", key_str), mouse_pos);
-                        }
-                    });
-                }
-            },
-            EventType::KeyRelease(_) => { },
-            _ => {},
-        }
-    };
-
-    if let Err(error) = listen(callback) {
-        eprintln!("Error starting global input listener: {:?}", error);
-    }
-}
-/// Captures a screenshot using xcap, saves it, and updates LATEST_FRAME.
-fn capture_and_save_screenshot(base_folder: &str) -> Result<(), Box<dyn std::error::Error>> {
-    let screenshot = capture_screen()?;
-    let timestamp = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
-    let (_, images_dir, _, _) = create_recording_paths(base_folder)?;
-    let file_path = images_dir.join(format!("raw_{}.png", timestamp));
-    screenshot.save(&file_path)?;
-    let mut buffer = Cursor::new(Vec::new());
-    screenshot.write_to(&mut buffer, ImageOutputFormat::Png)?;
-    let encoded = STANDARD.encode(buffer.get_ref());
-    let mut latest = LATEST_FRAME.lock().unwrap();
-    *latest = Some(encoded);
-    println!("Captured and saved screenshot: {:?}", file_path);
-    Ok(())
-}
-
-/// Captures an actual screenshot of the primary display using xcap.
-/// Captures an actual screenshot of the primary display using xcap.
+/// Captures a screenshot of the primary monitor.
 fn capture_screen() -> Result<image::DynamicImage, ImageError> {
-    // Catch panics to prevent app crashes
     let result = std::panic::catch_unwind(|| {
-        // Retrieve all available monitors.
-        let monitors = match Monitor::all() {
-            Ok(m) => m,
-            Err(e) => {
-                return Err(ImageError::IoError(std::io::Error::new(
-                    std::io::ErrorKind::Other,
-                    format!("Failed to get monitors: {:?}", e),
-                )));
-            }
-        };
+        let monitors = Monitor::all().map_err(|e| ImageError::IoError(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            format!("Failed to get monitors: {:?}", e),
+        )))?;
 
         if monitors.is_empty() {
             return Err(ImageError::IoError(std::io::Error::new(
-                std::io::ErrorKind::Other,
-                "No monitors found",
+                std::io::ErrorKind::Other, "No monitors found",
             )));
         }
 
-        // For this example, select the first monitor.
         let primary_monitor = &monitors[0];
-        let xcap_image = match primary_monitor.capture_image() {
-            Ok(img) => img,
-            Err(e) => {
-                return Err(ImageError::IoError(std::io::Error::new(
-                    std::io::ErrorKind::Other,
-                    format!("Failed to capture image: {:?}", e),
-                )));
-            }
-        };
+        let xcap_image = primary_monitor.capture_image().map_err(|e| ImageError::IoError(std::io::Error::new(
+            std::io::ErrorKind::Other, format!("Failed to capture image: {:?}", e),
+        )))?;
 
-        // Get width and height before consuming the image.
         let width = xcap_image.width();
         let height = xcap_image.height();
+        let raw = xcap_image.into_raw(); // Consumes image
 
-        // Extract the raw bytes. This consumes the xcap_image.
-        let raw = xcap_image.into_raw();
-
-        // Convert the raw bytes into an ImageBuffer from the image crate.
-        let buffer = match image::ImageBuffer::<image::Rgba<u8>, Vec<u8>>::from_raw(width, height, raw) {
-            Some(buf) => buf,
-            None => {
-                return Err(ImageError::IoError(std::io::Error::new(
-                    std::io::ErrorKind::Other,
-                    "Failed to convert captured image to ImageBuffer",
-                )));
-            }
-        };
-
-        // Wrap the buffer in a DynamicImage.
-        Ok(image::DynamicImage::ImageRgba8(buffer))
+        image::ImageBuffer::<image::Rgba<u8>, Vec<u8>>::from_raw(width, height, raw)
+            .map(image::DynamicImage::ImageRgba8)
+            .ok_or_else(|| ImageError::IoError(std::io::Error::new(
+                std::io::ErrorKind::Other, "Failed to convert captured image to ImageBuffer",
+            )))
     });
 
     match result {
         Ok(res) => res,
         Err(_) => Err(ImageError::IoError(std::io::Error::new(
-            std::io::ErrorKind::Other,
-            "Panic occurred during screen capture",
+            std::io::ErrorKind::Other, "Panic occurred during screen capture",
         ))),
     }
 }
-#[tauri::command]
-fn start_act(command: String) -> Result<bool, String> {
-    action::start_action(command)
+
+
+/// Captures and saves screenshot, updating the latest frame.
+fn capture_and_save_screenshot_with_action(
+    base_folder: &str,
+    action_label: &str, // Renamed for clarity
+    mouse_pos: Option<(i32, i32)>
+) -> Result<(), Box<dyn std::error::Error>> {
+    let screenshot = capture_screen()?;
+    let timestamp = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
+    let (_, images_dir, _, _) = create_recording_paths(base_folder)?;
+
+    // Get current action folder name safely
+    let action_folder_name = {
+        RECORDING_STATE.lock().unwrap().current_action_folder
+            .clone()
+            .unwrap_or_else(|| "action_unknown".to_string()) // Safer default
+    };
+
+    let mouse_pos_str = mouse_pos.map_or(String::new(), |(x, y)| format!("_mouse_{}_{}", x, y));
+
+    let file_path = images_dir.join(format!(
+        "raw_{}_{}_folder_{}{}.png", // Removed trailing underscore
+        timestamp,
+        action_label,
+        action_folder_name,
+        mouse_pos_str
+    ));
+
+    screenshot.save(&file_path)?; // Save first
+
+    // Encode for UI *after* saving
+    let mut buffer = Cursor::new(Vec::new());
+    // Consider a format with less compression if performance is critical, but PNG is good.
+    screenshot.write_to(&mut buffer, ImageOutputFormat::Png)?;
+    let encoded = STANDARD.encode(buffer.get_ref());
+
+    // Update global frame
+    *LATEST_FRAME.lock().unwrap() = Some(encoded);
+
+    println!("Captured: {:?} (Action: {}, Mouse: {:?})", file_path.file_name().unwrap_or_default(), action_label, mouse_pos);
+    Ok(())
 }
 
-/// Processes all raw screenshots by sending them to the Python endpoint,
-/// adds the action (extracted from the filename) as a new column in the CSV,
-/// moves the CSV into a new folder "action_{n}" inside encrypted_csv,
-/// and clears any leftover raw screenshots.
+// --- Global Listener Setup ---
+
+fn setup_global_listener() {
+    println!("Setting up global input listener...");
+    let app_state_clone = Arc::clone(&GLOBAL_APP_STATE); // Clone Arc for thread
+
+    thread::spawn(move || {
+        let callback = move |event: Event| { // Use rdev::Event directly
+            // Lock the global state only when needed
+            let mut global_state = match app_state_clone.lock() {
+                Ok(guard) => guard,
+                Err(poisoned) => poisoned.into_inner(), // Handle poisoned mutex
+            };
+
+            // --- State-based event handling ---
+            match global_state.input_state {
+                AppInputState::Idle => { /* Do nothing */ }
+                AppInputState::Recording => {
+                    // Need to access RECORDING_STATE as well for recording logic
+                    // Use try_lock to avoid potential deadlocks if main thread holds it,
+                    // though careful design should prevent this. Or lock briefly.
+                    if let Ok(mut rec_state) = RECORDING_STATE.lock() {
+                        // Only proceed if recording is logically active and verified
+                        if !rec_state.active || !rec_state.verified {
+                            return;
+                        }
+
+                        let now = SystemTime::now();
+                        let base_folder_opt = rec_state.base_folder.clone(); // Clone needed data
+                        let mouse_pos_opt = rec_state.mouse_location; // Read last known location
+
+                        // --- Recording Screenshot Logic (from old start_input_listeners) ---
+                        match event.event_type {
+                            EventType::ButtonPress(_) => {
+                                println!("[Listener-Rec] Mouse Press");
+                                rec_state.last_mouse_press_time = Some(now);
+                                rec_state.is_mouse_button_down = true;
+                                if let Some(folder) = base_folder_opt {
+                                    thread::spawn(move || {
+                                        thread::sleep(Duration::from_secs_f32(0.5)); // Shorter delay?
+                                        let _ = capture_and_save_screenshot_with_action(&folder, "MousePress", mouse_pos_opt);
+                                    });
+                                }
+                            },
+                            EventType::ButtonRelease(_) => {
+                                println!("[Listener-Rec] Mouse Release");
+                                rec_state.is_mouse_button_down = false;
+                                if let Some(folder) = base_folder_opt {
+                                    thread::spawn(move || {
+                                        thread::sleep(Duration::from_secs_f32(0.5)); // Shorter delay?
+                                        let _ = capture_and_save_screenshot_with_action(&folder, "MouseRelease", mouse_pos_opt);
+                                    });
+                                }
+                            },
+                            EventType::Wheel { .. } => {
+                                println!("[Listener-Rec] Mouse Wheel");
+                                if let Some(folder) = base_folder_opt {
+                                    thread::spawn(move || {
+                                        thread::sleep(Duration::from_secs_f32(1.0));
+                                        let _ = capture_and_save_screenshot_with_action(&folder, "MouseScroll", mouse_pos_opt);
+                                    });
+                                }
+                            },
+                            EventType::KeyPress(key) => {
+                                if key == Key::Escape { return; } // Ignore Escape during recording? Or handle?
+
+                                // Basic key press handling - Needs refinement for complex typing metric
+                                println!("[Listener-Rec] Key Press: {:?}", key);
+                                let key_str = format!("{:?}", key); // Basic representation
+
+                                // TODO: Implement refined keyboard typing metric logic here if needed
+                                // This simple version captures on every qualifying key press (after delay)
+                                if let Some(folder) = base_folder_opt {
+                                    thread::spawn(move || {
+                                        thread::sleep(Duration::from_secs_f32(1.0));
+                                        // Maybe add check here if user typed rapidly *after* this key was pressed
+                                        let _ = capture_and_save_screenshot_with_action(&folder, &format!("KeyPress_{}", key_str), mouse_pos_opt);
+                                    });
+                                }
+                            },
+                            _ => {} // Ignore other events like Move, KeyRelease for screenshots
+                        }
+                        // --- End Recording Screenshot Logic ---
+                    } else {
+                        eprintln!("[Global Listener] Failed to lock RECORDING_STATE.");
+                    }
+                }
+                AppInputState::ExecutingAction => {
+                    // --- Check for Escape key to interrupt action loop ---
+                    if let EventType::KeyPress(Key::Escape) = event.event_type {
+                        println!("[Global Listener - Executing] Escape detected!");
+                        global_state.action_interrupted = true; // Set flag in shared state
+                    }
+                }
+            }
+            // Mutex guard `global_state` is dropped here, unlocking
+        }; // End of callback closure
+
+        println!("[Global Listener Thread] Starting rdev::listen...");
+        if let Err(error) = listen(callback) {
+            eprintln!("[Global Listener Thread] ERROR during rdev::listen: {:?}", error);
+            // This thread might exit here if rdev stops permanently
+        }
+        println!("[Global Listener Thread] rdev::listen finished (or errored).");
+        // Note: This thread likely won't exit cleanly unless rdev errors or the main process exits.
+    }); // End of thread spawn
+}
+
+// --- Mouse Tracking Thread (Still separate, started by start_recording) ---
+// Renamed to avoid confusion with the main listener setup
+fn start_mouse_location_tracker() {
+    println!("Starting mouse location tracker thread...");
+    // Use a clone of RECORDING_STATE's mutex if needed, or pass necessary fields
+    // Keep it simple: access the global directly inside the thread.
+
+    thread::spawn(move || {
+        // Create enigo instance *within this thread* if only used here
+        let enigo = match Enigo::new(&Settings::default()) {
+            Ok(e) => e,
+            Err(e) => {
+                eprintln!("Mouse tracker failed to init Enigo: {}", e);
+                return;
+            }
+        };
+
+        // Loop controlled by the *recording state*, not the global app state here
+        while {
+            RECORDING_STATE.lock().unwrap().active // Check if recording is active
+        } {
+            if let Ok((x, y)) = enigo.location() {
+                if let Ok(mut rec_state) = RECORDING_STATE.lock() {
+                    // Check active *again* after locking to handle race condition on stop
+                    if rec_state.active {
+                        rec_state.mouse_location = Some((x, y));
+                    } else {
+                        break; // Exit if recording stopped while waiting for lock
+                    }
+                }
+            }
+            thread::sleep(Duration::from_millis(50)); // Check frequency
+        }
+        println!("Mouse location tracker thread finished.");
+    });
+}
+
+// --- Tauri Commands ---
+
+
+
+fn extract_timestamp_from_filename(filename: &str) -> Option<u64> {
+    // Using existing regex
+    let re = Regex::new(r"raw_(\d+)_.*\.png").ok()?;
+    let caps = re.captures(filename)?;
+    caps.get(1)?.as_str().parse::<u64>().ok()
+}
+
+// Moved from action.rs for consolidation, needs imports: Path, fs, SystemTime, Regex, Client, serde_json, STANDARD Engine
 fn process_recording_internal(base_folder: &str, _encryption_password: String) -> Result<Vec<String>, Box<dyn std::error::Error>> {
+    // --- This function body remains the same as provided in the previous answer ---
+    // --- including sorting files and adding action_number ---
     let (_base, images_dir, encrypted_dir, _salt_dir) = create_recording_paths(base_folder)?;
     let mut results = Vec::new();
     let client = Client::builder().timeout(Duration::from_secs(120)).build()?;
 
-    // Get the current action folder from recording state
     let action_folder_name = {
         let state = RECORDING_STATE.lock().unwrap();
         match &state.current_action_folder {
             Some(folder) => folder.clone(),
-            None => "action_0".to_string()  // Fallback
+            None => {
+                eprintln!("Warning: current_action_folder not set during processing. Using 'action_unknown'.");
+                "action_unknown".to_string() // Safer default if state is somehow lost
+            }
         }
     };
 
-    // Use the specified action folder
     let action_folder = encrypted_dir.join(&action_folder_name);
     if !action_folder.exists() {
-        std::fs::create_dir_all(&action_folder)?;
+        println!("Creating action folder for processing: {}", action_folder.display());
+        fs::create_dir_all(&action_folder)?;
+    } else {
+        println!("Processing into existing action folder: {}", action_folder.display());
     }
 
-    // List all PNG files.
-    let files: Vec<_> = std::fs::read_dir(&images_dir)?
-        .filter_map(|entry| entry.ok())
-        .filter(|e| e.path().extension().and_then(|s| s.to_str()) == Some("png"))
+
+    let mut files_with_timestamps: Vec<_> = fs::read_dir(&images_dir)?
+        .filter_map(Result::ok) // Use filter_map(Result::ok)
+        .filter_map(|e| {
+            let path = e.path();
+            if path.is_file() && path.extension().and_then(|s| s.to_str()) == Some("png") {
+                path.file_name()
+                    .and_then(|name| name.to_str())
+                    .and_then(extract_timestamp_from_filename)
+                    .map(|ts| (ts, path)) // Keep full path
+            } else {
+                None
+            }
+        })
         .collect();
 
-    // Accumulate parsed CSV rows.
-    let mut all_rows: Vec<String> = Vec::new();
+    files_with_timestamps.sort_by_key(|&(ts, _)| ts);
+    println!("Found {} images to process.", files_with_timestamps.len());
 
-    for entry in files {
-        let path = entry.path();
-        println!("Processing file: {}", path.display());
 
-        let image_bytes = std::fs::read(&path)?;
+    let mut action_number = 0;
 
+    for (file_timestamp, path) in files_with_timestamps {
+        println!("Processing [{}]: {}", action_number, path.display());
+
+        let image_bytes = match fs::read(&path) {
+            Ok(bytes) => bytes,
+            Err(e) => { /* ... error handling ... */ continue; }
+        };
 
         let image_base64 = STANDARD.encode(&image_bytes);
         let payload = json!({ "image": image_base64 });
-        let resp = client
-            .post("http://localhost:5001/api/processImage")
-            .json(&payload)
-            .send()?;
 
-        println!("Received response status: {}", resp.status());
-        if !resp.status().is_success() {
-            results.push(format!("Error processing {}: {}", path.display(), resp.status()));
+        let resp = match client
+            .post("http://localhost:5001/api/processImage") // Ensure URL is correct
+            .json(&payload)
+            .send() {
+            Ok(resp) => resp,
+            Err(e) => { /* ... error handling ... */ continue; }
+        };
+
+        let status = resp.status();
+        println!(" -> Status: {}", status);
+
+        if !status.is_success() {
+            let error_body = resp.text().unwrap_or_else(|_| "No body".to_string());
+            results.push(format!("Error processing {}: Status {} - {}", path.display(), status, error_body));
             continue;
         }
 
-        let json_resp: serde_json::Value = resp.json()?;
-
-
-        let timestamp = SystemTime::now().duration_since(UNIX_EPOCH)?.as_secs();
-
-        // Extract information from the filename
-        // Expected format: raw_{timestamp}_{action}_folder_{folder}_mouse_{x}_{y}_.png
-        let file_stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
-        let parts: Vec<&str> = file_stem.split('_').collect();
-
-        // Extract action
-        let action = if parts.len() >= 3 {
-            parts[2].to_string()
-        } else {
-            "Unknown".to_string()
+        let json_resp: serde_json::Value = match resp.json() {
+            Ok(json_val) => json_val,
+            Err(e) => { /* ... error handling ... */ continue; }
         };
 
-        // Extract mouse position
-        let (mouse_x, mouse_y) = {
+
+        let csv_timestamp = SystemTime::now().duration_since(SystemTime::UNIX_EPOCH)?.as_secs(); // Use processing time for CSV name
+
+        let file_stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("");
+        let parts: Vec<&str> = file_stem.split('_').collect();
+        let action = if parts.len() >= 3 { parts[2].to_string() } else { "Unknown".to_string() };
+        let (mouse_x, mouse_y) = { /* ... mouse coord extraction ... */
             let mut x = "0".to_string();
             let mut y = "0".to_string();
-
-            // Find the index of "mouse" in the parts array
             if let Some(mouse_idx) = parts.iter().position(|&p| p == "mouse") {
-                // Make sure we have at least two more elements after "mouse"
                 if parts.len() > mouse_idx + 2 {
                     x = parts[mouse_idx + 1].to_string();
                     y = parts[mouse_idx + 2].to_string();
                 }
             }
-
             (x, y)
         };
 
-        // Modify parsed CSV text by adding new columns "action", "mouse_x", and "mouse_y"
-        let parsed_csv = if let Some(parsed_content) = json_resp.get("parsed_content").and_then(|v| v.as_str()) {
+        // Modify CSV to add columns
+        let parsed_csv_string = if let Some(parsed_content) = json_resp.get("parsed_content").and_then(|v| v.as_str()) {
             let mut lines = parsed_content.lines();
             let header = if let Some(h) = lines.next() {
-                format!("{},action,mouse_x,mouse_y", h)
+                format!("{},action,mouse_x,mouse_y,action_number", h) // Add action_number header
             } else {
-                "action,mouse_x,mouse_y".to_string()
+                // Fallback header if needed
+                "type,bbox,interactivity,content,source,action,mouse_x,mouse_y,action_number".to_string()
             };
-
             let mut new_rows = vec![header];
             for line in lines {
-                new_rows.push(format!("{},{},{},{}", line, action, mouse_x, mouse_y));
+                // Add action_number value
+                new_rows.push(format!("{},{},{},{},{}", line, action, mouse_x, mouse_y, action_number));
             }
             new_rows.join("\n")
         } else {
-            "No parsed content".to_string()
+            eprintln!("Warning: No 'parsed_content' found in JSON for {}", path.display());
+            // Fallback CSV with action_number
+            format!("type,bbox,interactivity,content,source,action,mouse_x,mouse_y,action_number\n,,,,{},{},{},{}", action, mouse_x, mouse_y, action_number)
         };
 
-        // Save the CSV into the action folder.
-        let csv_path = action_folder.join(format!("parsed_content_{}.csv", timestamp));
-        std::fs::write(&csv_path, &parsed_csv)?;
-
-        // Delete the raw screenshot.
-        std::fs::remove_file(&path)?;
-        results.push(format!("Processed file {} into CSV at {:?}", path.display(), csv_path));
-
-        // Accumulate the CSV text.
-        all_rows.push(parsed_csv.clone());
-    }
-
-    // Clear any leftover raw images.
-    for entry in std::fs::read_dir(&images_dir)? {
-        let entry = entry?;
-        let path = entry.path();
-        if path.extension().and_then(|s| s.to_str()) == Some("png") {
-            let _ = std::fs::remove_file(&path);
+        let csv_path = action_folder.join(format!("parsed_content_{}_{}.csv", file_timestamp, csv_timestamp)); // Include original file timestamp?
+        if let Err(e) = fs::write(&csv_path, &parsed_csv_string) {
+            /* ... error handling ... */
+            eprintln!("Error writing CSV file {}: {}", csv_path.display(), e);
+            results.push(format!("Error writing CSV {}: {}", csv_path.display(), e));
+        } else {
+            results.push(format!("Processed {} -> CSV {}", path.file_name().unwrap_or_default().to_string_lossy(), csv_path.file_name().unwrap_or_default().to_string_lossy()));
         }
-    }
+
+        if let Err(e) = fs::remove_file(&path) {
+            eprintln!("Warning: Failed to delete raw screenshot {}: {}", path.display(), e);
+        }
+
+        action_number += 1; // Increment counter
+    } // End loop through files
 
     Ok(results)
 }
 
-fn summarize_recording_internal(base_folder: &str) -> Result<String, Box<dyn std::error::Error>> {
-    let (_base, _images_dir, _encrypted_dir, _salt_dir) = create_recording_paths(base_folder)?;
-    Ok("Dummy summary of recording".into())
+// Moved from action.rs
+fn update_main_csv_entry(
+    base_folder_str: &str,
+    action_folder_to_find: &str,
+    new_name: &str,
+) -> Result<(), String> {
+    // --- This function body remains the same as provided in the previous answer ---
+    // --- including reading, rebuilding records, and rewriting ---
+    let base_folder = Path::new(base_folder_str);
+    let main_csv_path = base_folder.join("main.csv");
+
+    if !main_csv_path.exists() { return Err("main.csv does not exist.".to_string()); }
+
+    let file_content = fs::read_to_string(&main_csv_path).map_err(|e| format!("Failed to read main.csv: {}", e))?;
+    let mut rdr = ReaderBuilder::new().has_headers(true).from_reader(file_content.as_bytes());
+    let headers = rdr.headers().map_err(|e| format!("Failed to read headers: {}", e))?.clone();
+    let mut records: Vec<StringRecord> = Vec::new();
+    let mut updated = false;
+    let location_index = headers.iter().position(|h| h == "location").ok_or("Missing 'location' header")?;
+    let query_index = headers.iter().position(|h| h == "query").ok_or("Missing 'query' header")?;
+
+    for result in rdr.records() {
+        let record = result.map_err(|e| format!("Failed to parse record: {}", e))?;
+        if record.get(location_index) == Some(action_folder_to_find) {
+            let mut current_fields: Vec<String> = record.iter().map(String::from).collect();
+            if query_index < current_fields.len() {
+                current_fields[query_index] = new_name.to_string();
+                let updated_record = StringRecord::from(current_fields);
+                records.push(updated_record);
+                println!("Updating record for '{}' with name '{}'", action_folder_to_find, new_name);
+                updated = true;
+            } else {
+                records.push(record); // Keep original if index issue
+                eprintln!("Warning: Query index out of bounds. Skipping update for this record.");
+            }
+        } else {
+            records.push(record); // Keep non-matching records
+        }
+    }
+
+    if !updated {
+        eprintln!("Warning/Info: Did not find entry for action folder '{}' to update.", action_folder_to_find);
+        return Ok(()); // Don't error if not found, maybe already renamed or just started
+    }
+
+    // Rewrite
+    let mut wtr = WriterBuilder::new().has_headers(true).from_path(&main_csv_path)
+        .map_err(|e| format!("Failed to write main.csv: {}", e))?;
+    wtr.write_record(&headers).map_err(|e| format!("Failed to write header: {}", e))?;
+    for record_to_write in records {
+        wtr.write_record(&record_to_write).map_err(|e| format!("Failed to write record: {}", e))?;
+    }
+    wtr.flush().map_err(|e| format!("Failed to flush writer: {}", e))?;
+    println!("Successfully updated main.csv for action '{}'", action_folder_to_find);
+    Ok(())
 }
 
+
+fn summarize_recording_internal(base_folder: &str) -> Result<String, Box<dyn std::error::Error>> {
+    // Dummy implementation
+    let (_base, _images_dir, _encrypted_dir, _salt_dir) = create_recording_paths(base_folder)?;
+    Ok(format!("Dummy summary for recording in {}", base_folder))
+}
+
+// --- Main Function ---
 fn main() {
+    // Ensure X11 threads are initialized for Linux GUI apps that might use Xlib indirectly
     #[cfg(target_os = "linux")]
     unsafe {
+        // Consider conditional compilation or checking if running under Wayland vs X11
+        // if std::env::var("XDG_SESSION_TYPE").unwrap_or_default() == "x11" {
         xlib::XInitThreads();
+        // }
     }
+
+    // --- Start the single global listener ---
+    setup_global_listener();
+    // --------------------------------------
+
     tauri::Builder::default()
+        // Add state management if needed via .manage()
         .invoke_handler(tauri::generate_handler![
             start_recording,
             verify_recording,
             stop_recording,
             summarize_recording,
             get_latest_frame,
-            start_act
+            start_act, // This calls action::execute_task_loop
+            update_current_action_name // Updates main.csv during recording
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+// --- Make sure action.rs is correctly included ---
+// Ensure action.rs has access to GLOBAL_APP_STATE and AppInputState:
+// Add `use crate::{GLOBAL_APP_STATE, AppInputState};` at the top of action.rs
+// Ensure execute_task_loop in action.rs is modified to:
+//   1. Remove start_esc_listener() and stop_esc_listener() calls.
+//   2. Set GLOBAL_APP_STATE.input_state = AppInputState::ExecutingAction at the start.
+//   3. Set GLOBAL_APP_STATE.action_interrupted = false at the start.
+//   4. Check GLOBAL_APP_STATE.lock().unwrap().action_interrupted inside the loop.
+//   5. Set GLOBAL_APP_STATE.input_state = AppInputState::Idle when the loop finishes (Ok or Err).
+//   6. Determine base_folder path on demand if RECORDING_STATE.base_folder is None.

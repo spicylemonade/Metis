@@ -1,12 +1,9 @@
 use gemini_rs::{Client, Chat};
 use tokio; // Make sure to add these dependencies in your Cargo.toml
 
-pub async fn get_llm(context: String, query: String) -> Result<String, gemini_rs::Error> {
+pub async fn get_llm(context: String, query: String, client: &Client) -> Result<String, gemini_rs::Error> {
     // Initialize the client with API key from environment
-    let client = Client::new(
-        std::env::var("GEMINI_API_KEY")
-            .expect("GEMINI_API_KEY environment variable not set")
-    );
+
 
     // Create a new chat instance with the desired model
     let mut chat = client.chat("gemini-2.0-flash");

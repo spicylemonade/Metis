@@ -18,9 +18,11 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2.0.4", features = [] }
 
 [dependencies]
+secrecy = "0.10.3"
 enigo = "0.3.0"
+gemini-ai = "0.1.1682"
 x11 = { version = "2.19.1", features = ["xlib"] }
-gemini-rs = "1.0.0"
+gemini-rs = "1.1.0"
 xcap = "0.4.0"
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
